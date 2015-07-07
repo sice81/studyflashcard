@@ -9,6 +9,9 @@ require.config({
 	  'angular-route': '../lib/angular-route',
 	  'angular-sanitize': '../lib/angular-sanitize',
 	  'angular-touch': '../lib/angular-touch',
+	  'angular-ui-router': '../lib/angular-ui-router',
+	  'ionic': '../lib/ionic',
+	  'ionic-angular': '../lib/ionic-angular',
 	  'app': 'app'
   },
   shim: {
@@ -19,6 +22,9 @@ require.config({
     'angular-resource': ['angular'],
     'angular-animate': ['angular'],
     'angular-touch': ['angular'],
+	'angular-ui-router': ['angular'],
+	'ionic': {'exports' : 'ionic'},
+	'ionic-angular': ['angular', 'ionic'],
     'angular-mocks': {
       deps:['angular'],
       'exports':'angular.mock'
@@ -40,8 +46,11 @@ require([
   'angular-sanitize',
   'angular-resource',
   'angular-animate',
-  'angular-touch'
-], function(angular, app, ngRoutes, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch) {
+  'angular-touch',
+  'angular-ui-router',
+  'ionic',
+  'ionic-angular'
+], function(angular, app, ngRoutes, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch, ngUiRouter, ionic, ionicAngular) {
   'use strict';
   /* jshint ignore:start */
   var $html = angular.element(document.getElementsByTagName('html')[0]);
