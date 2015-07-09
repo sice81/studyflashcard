@@ -49,16 +49,16 @@ require([
   'angular',
   'app',
   'route',
-  'angular-route',
-  'angular-cookies',
+  //'angular-route',
+  //'angular-cookies',
   'angular-sanitize',
-  'angular-resource',
+  //'angular-resource',
   'angular-animate',
-  'angular-touch',
+  //'angular-touch',
   'angular-ui-router',
   'ionic',
   'ionic-angular'
-], function (angular, app, route, ngRoutes, ngCookies, ngSanitize, ngResource, ngAnimate, ngTouch, ngUiRouter, ionic, ionicAngular) {
+], function (angular, app) {
   'use strict';
   /* jshint ignore:start */
   var $html = angular.element(document.getElementsByTagName('html')[0]);
