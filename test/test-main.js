@@ -13,8 +13,23 @@ requirejs.config({
     baseUrl: '/base/app/scripts',
 
     paths: {
-
-    },
+    angular: '../../bower_components/angular/angular',
+    'angular-animate': '../../bower_components/angular-animate/angular-animate',
+    'angular-cookies': '../../bower_components/angular-cookies/angular-cookies',
+    'angular-resource': '../../bower_components/angular-resource/angular-resource',
+    'angular-route': '../../bower_components/angular-route/angular-route',
+    'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
+    'angular-touch': '../../bower_components/angular-touch/angular-touch',
+    'angular-ui-router': '../lib/angular-ui-router',
+    ionic: '../../bower_components/ionic/release/js/ionic',
+    'ionic-angular': '../../bower_components/ionic/release/js/ionic-angular',
+    app: 'app',
+    'angular-aria': '../../bower_components/angular-aria/angular-aria',
+    'angular-messages': '../../bower_components/angular-messages/angular-messages',
+    'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
+    bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
+    framework7: '../../bower_components/framework7/dist'
+  },
 
     shim: {
         'angular' : {'exports' : 'angular'},

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/scripts/app.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/controllers.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/controllers/chat-detail.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/controllers/signin.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/controllers/tab-account.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/controllers/tab-chats.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/controllers/tab-dash.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/main.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/route.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/templates/chat-detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/templates/signin.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/templates/tab-dash.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/templates/tabs.html" charset="UTF-8" />
+  </component>
+</project>
