@@ -14,11 +14,10 @@ require.config({
     'ionic-angular': '../lib/ionic-angular',
     'app': 'app',
     'route': 'route',
-    'signin': './controllers/signin',
-    'tab-dash': './controllers/tab-dash',
-    'tab-chats': './controllers/tab-chats',
-    'tab-account': './controllers/tab-account',
-    'chat-detail': './controllers/chat-detail'
+    'signin-ctrl': './controllers/signin',
+    'dashboard-ctrl': './controllers/dashboard',
+    'store-ctrl': './controllers/store',
+    'settings-ctrl': './controllers/settings',
   },
   shim: {
     'angular': {'exports': 'angular'},

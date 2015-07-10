@@ -1,8 +1,8 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('AccountCtrl', function ($scope, $state) {
-    console.log('AccountCtrl');
+  app.controller('SettingsCtrl', function ($scope, $state) {
+    console.log('SettingsCtrl');
     $scope.settings = {
       enableFriends: true
     };

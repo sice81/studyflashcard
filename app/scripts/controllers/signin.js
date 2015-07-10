@@ -5,7 +5,7 @@ define(['angular', 'app'], function (angular, app) {
     console.log('SigninCtrl');
 
     $scope.signIn = function (user) {
-      $state.go('tab.dash');
+      $state.go('tab.dashboard');
     };
   });
 });

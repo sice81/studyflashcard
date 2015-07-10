@@ -1,4 +1,4 @@
-define(['angular', 'app', 'services', 'signin', 'tab-dash', 'tab-chats', 'tab-account', 'chat-detail'], function (angular, app) {
+define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ctrl', 'settings-ctrl'], function (angular, app) {
   'use strict';
 
   app.config(function ($stateProvider, $urlRouterProvider) {
@@ -15,45 +15,36 @@ define(['angular', 'app', 'services', 'signin', 'tab-dash', 'tab-chats', 'tab-ac
         templateUrl: 'templates/tabs.html'
       })
 
-      .state('tab.dash', {
-        url: '/dash',
+      .state('tab.dashboard', {
+        url: '/dashboard',
         views: {
-          'tab-dash': {
-            templateUrl: 'templates/tab-dash.html',
-            controller: 'DashCtrl'
+          'tab-dashboard': {
+            templateUrl: 'templates/dashboard.html',
+            controller: 'DashboardCtrl'
           }
         }
       })
 
-      .state('tab.chats', {
-        url: '/chats',
+      .state('tab.store', {
+        url: '/store',
         views: {
-          'tab-chats': {
-            templateUrl: 'templates/tab-chats.html',
-            controller: 'ChatsCtrl'
+          'tab-store': {
+            templateUrl: 'templates/store.html',
+            controller: 'StoreCtrl'
           }
         }
       })
 
-      .state('tab.chat-detail', {
-        url: '/chats/:chatId',
+      .state('tab.settings', {
+        url: '/settings',
         views: {
-          'tab-chats': {
-            templateUrl: 'templates/chat-detail.html',
-            controller: 'ChatDetailCtrl'
+          'tab-settings': {
+            templateUrl: 'templates/settings.html',
+            controller: 'SettingsCtrl'
           }
         }
       })
-
-      .state('tab.account', {
-        url: '/account',
-        views: {
-          'tab-account': {
-            templateUrl: 'templates/tab-account.html',
-            controller: 'AccountCtrl'
-          }
-        }
-      });
+    ;
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/signin');
