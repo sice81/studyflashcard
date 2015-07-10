@@ -3,6 +3,9 @@
 This project is generated with [yo angular-require generator](https://github.com/aaronallport/generator-angular-require)
 version 1.0.0.
 
+## Getting start
+run 'npm install'
+
 ## Build & development
 
 Run `grunt` for building and `grunt serve` for preview.
