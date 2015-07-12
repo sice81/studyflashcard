@@ -14,7 +14,7 @@
       <div class="item item-divider">내 학습진도</div>
       <div class="item item-body">
         <div>
-          <ion-list ng-controller="ListCtrl">
+          <ion-list ng-controller="Dashboard.ListCtrl">
             <ion-item ng-repeat="myfavorite in myfavorites">
               <a ng-href="#/cardpacks/{{myfavorite.id}}">{{myfavorite.name}}</a>
               <br>
