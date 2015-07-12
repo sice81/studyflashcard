@@ -1,4 +1,4 @@
-define(['angular'], function (angular) {
+define(['angular', 'app'], function (angular, app) {
   'use strict';
 
   console.log('Myfavorite');
@@ -32,8 +32,7 @@ define(['angular'], function (angular) {
     }
   }];
 
-  angular.module('studyflashcardApp.services', [])
-    .factory('Myfavorite', function () {
+  app.factory('Myfavorite', function () {
 
       return {
         all: function () {

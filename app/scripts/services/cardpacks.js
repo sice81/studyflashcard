@@ -1,7 +1,7 @@
-define(['angular'], function (angular) {
+define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  console.log('Myfavorite');
+  console.log('Cardpacks');
 
   var cardpacks = [
     {
@@ -42,8 +42,7 @@ define(['angular'], function (angular) {
     }
   ];
 
-  angular.module('studyflashcardApp.services', [])
-    .factory('Cardpacks', function () {
+  app.factory('Cardpacks', function () {
 
       return {
         all: function () {
