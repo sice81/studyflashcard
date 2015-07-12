@@ -39,5 +39,9 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     $scope.wrong = function () {
       $scope.data.wrong++;
     };
+
+    $scope.showBack = function () {
+      console.log('showBack');
+    };
   });
 });

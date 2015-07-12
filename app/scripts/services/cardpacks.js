@@ -17,6 +17,15 @@ define(['angular'], function (angular) {
           front: '<h1>mother</h1>',
           back: '<h1>엄마</h1>',
           hint: '마미'
+        },
+        {
+          front: '<h1>sister</h1>',
+          back: '<h1>여동생</h1>',
+          hint: '마미'
+        },
+        {
+          front: '<h1>father</h1>',
+          back: '<h1>아버지</h1>',
         }
       ]
     },
