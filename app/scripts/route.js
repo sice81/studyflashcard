@@ -20,7 +20,7 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
         views: {
           'tab-dashboard': {
             templateUrl: 'templates/dashboard.html',
-            controller: 'DashboardCtrl'
+            controller: 'DashboardMainCtrl'
           }
         }
       })

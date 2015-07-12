@@ -1,28 +1,42 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
+    <div class="list card" ng-controller="Dashboard.ChartCtrl">
+      <div class="item item-divider">최근 학습기록</div>
+      <div class="item item-body">
+        <canvas id="line" class="chart chart-line" data="data"
+                labels="labels" legend="true" series="series"
+                click="onClick">
+        </canvas>
+      </div>
+    </div>
+
     <div class="list card">
-      <div class="item item-divider">Recent Updates</div>
+      <div class="item item-divider">내 학습진도</div>
       <div class="item item-body">
         <div>
-          There is a fire in <b>sector 3</b>
-          <a href="#/signin">Go signin</a>
+          <ion-list ng-controller="ListCtrl">
+            <ion-item ng-repeat="myfavorite in myfavorites">
+              <a ng-href="#/cardpacks/{{myfavorite.id}}">{{myfavorite.name}}</a>
+              <br>
+              <a>{{myfavorite.status.right}}</a>
+              /
+              <a>{{myfavorite.size}}</a>
+              <progress max="{{myfavorite.size}}" value="{{myfavorite.status.right}}"> </progress>
+            </ion-item>
+          </ion-list>
         </div>
       </div>
     </div>
+
     <div class="list card">
-      <div class="item item-divider">Health</div>
+      <div class="item item-divider">내 카드팩</div>
       <div class="item item-body">
         <div>
-          You ate an apple today!
+          내가 만든 카드팩이 없습니다.
         </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Upcoming</div>
-      <div class="item item-body">
-        <div>
-          You have <b>29</b> meetings on your calendar tomorrow.
-        </div>
+        <button class="button button-clear button-positive button-small">
+          <i class="icon ion-loading-c"></i> + 카드 만들기
+        </button>
       </div>
     </div>
   </ion-content>

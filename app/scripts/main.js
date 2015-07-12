@@ -10,6 +10,8 @@ require.config({
     'angular-sanitize': '../lib/angular-sanitize',
     'angular-touch': '../lib/angular-touch',
     'angular-ui-router': '../lib/angular-ui-router',
+    'angular-chart': '../lib/angular-chart',
+    'chart': '../lib/Chart',
     'ionic': '../lib/ionic',
     'ionic-angular': '../lib/ionic-angular',
     'app': 'app',
@@ -18,6 +20,8 @@ require.config({
     'dashboard-ctrl': './controllers/dashboard',
     'store-ctrl': './controllers/store',
     'settings-ctrl': './controllers/settings',
+    'services': './services',
+    'myfavorite-service': './services/myfavorite'
   },
   shim: {
     'angular': {'exports': 'angular'},
@@ -31,6 +35,8 @@ require.config({
     'angular-ui-router': ['angular'],
     'ionic': {'exports': 'ionic'},
     'ionic-angular': ['angular', 'ionic'],
+    'angular-chart': ['angular', 'chart'],
+    'chart.js': {'exports': 'chart'},
     'angular-mocks': {
       deps: ['angular'],
       'exports': 'angular.mock'
@@ -55,6 +61,7 @@ require([
   'angular-animate',
   //'angular-touch',
   'angular-ui-router',
+  'angular-chart',
   'ionic',
   'ionic-angular'
 ], function (angular, app) {

@@ -1,7 +1,7 @@
 define(['angular'], function (angular) {
   'use strict';
 
-  var module = angular.module('studyflashcardApp', ['ionic', 'studyflashcardApp.controllers', 'studyflashcardApp.services'])
+  var module = angular.module('studyflashcardApp', ['ionic', 'chart.js', 'studyflashcardApp.controllers', 'studyflashcardApp.services'])
     .run(function ($ionicPlatform) {
       $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
