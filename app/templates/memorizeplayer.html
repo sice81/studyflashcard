@@ -38,8 +38,8 @@
 <ion-view view-title="Memorize Player">
   <ion-content>
     <div class="body">
-      wrong : {{data.wrong}}
-      right : {{data.right}}
+      <a class="assertive">틀림 : {{data.wrong}}</a>
+      <a class="calm">맞음 : {{data.right}}</a>
 
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -52,12 +52,12 @@
       <div class="item range">
         <input type="range" name="volume" min="0" max="{{data.max}}" value="0" ng-model="data.current">
       </div>
-    </div>
 
-    <div class="bar bar-footer bar-light">
-      <button ng-click="wrong()" class="button button-assertive">틀림</button>
-      <div class="title">어땠나요?</div>
-      <button ng-click="right()" class="button button-calm">맞음</button>
+      <div class="bar bar-light">
+        <button ng-click="wrong()" class="button button-assertive">틀림</button>
+        <div class="title">어땠나요?</div>
+        <button ng-click="right()" class="button button-calm">맞음</button>
+      </div>
     </div>
   </ion-content>
 </ion-view>
