@@ -20,6 +20,7 @@ require.config({
     'dashboard-ctrl': './controllers/dashboard',
     'store-ctrl': './controllers/store',
     'settings-ctrl': './controllers/settings',
+    'memorizeplayer-ctrl': './controllers/memorizeplayer',
     'services': './services',
     'myfavorite-service': './services/myfavorite'
   },

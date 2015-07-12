@@ -9,8 +9,8 @@ define(['angular', 'app', 'myfavorite-service'], function (angular, app) {
   app.controller("Dashboard.ChartCtrl", function ($scope) {
     console.log('Dashboard.ChartCtrl');
 
-    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    $scope.series = ['Series A', 'Series B'];
+    $scope.labels = ["월", "화", "수", "목", "금", "토", "일"];
+    $scope.series = ['카드학습', '퀴즈풀이'];
     $scope.data = [
       [65, 59, 80, 81, 56, 55, 40],
       [28, 48, 40, 19, 86, 27, 90]

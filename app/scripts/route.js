@@ -1,4 +1,4 @@
-define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ctrl', 'settings-ctrl'], function (angular, app) {
+define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ctrl', 'settings-ctrl', 'memorizeplayer-ctrl'], function (angular, app) {
   'use strict';
 
   app.config(function ($stateProvider, $urlRouterProvider) {
@@ -43,6 +43,12 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
             controller: 'SettingsCtrl'
           }
         }
+      })
+
+      .state('memorizeplayer', {
+        url: '/memorizeplayer/:cardId',
+        templateUrl: 'templates/memorizeplayer.html',
+        controller: 'MemorizePlayerCtrl'
       })
     ;
 

@@ -5,6 +5,7 @@ define(['angular'], function (angular) {
 
   var myfavorite = [{
     id: 0,
+    cardId: 101,
     name: '영어단어 우선순위 1000제',
     size: 1000,
     status: {
@@ -13,6 +14,7 @@ define(['angular'], function (angular) {
     }
   }, {
     id: 1,
+    cardId: 102,
     name: '자바 제1장 요약 10선',
     size: 10,
     status: {
@@ -21,6 +23,7 @@ define(['angular'], function (angular) {
     }
   }, {
     id: 2,
+    cardId: 103,
     name: 'SQLD 제1장 요약 200선',
     size: 200,
     status: {
