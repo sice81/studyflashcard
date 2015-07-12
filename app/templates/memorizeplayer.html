@@ -3,15 +3,17 @@
     background: #eee;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
-    color:#000;
+    color: #000;
     margin: 0;
     padding: 0;
   }
+
   .swiper-container {
     width: 500px;
     height: 300px;
     margin: 20px auto;
   }
+
   .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -36,7 +38,8 @@
 <ion-view view-title="Memorize Player">
   <ion-content>
     <div class="body">
-      Welcome Memorize Player!
+      wrong : {{data.wrong}}
+      right : {{data.right}}
 
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -47,8 +50,14 @@
       </div>
 
       <div class="item range">
-        <input type="range" name="volume" min="0" max="{{max}}" value="0" ng-model="current">
+        <input type="range" name="volume" min="0" max="{{data.max}}" value="0" ng-model="data.current">
       </div>
+    </div>
+
+    <div class="bar bar-footer">
+      <button ng-click="wrong()" class="button button-assertive">Wrong</button>
+      <div class="title">Title</div>
+      <button ng-click="right()" class="button button-calm">Right</button>
     </div>
   </ion-content>
 </ion-view>

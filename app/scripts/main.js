@@ -23,7 +23,8 @@ require.config({
     'settings-ctrl': './controllers/settings',
     'memorizeplayer-ctrl': './controllers/memorizeplayer',
     'services': './services',
-    'myfavorite-service': './services/myfavorite'
+    'myfavorite-service': './services/myfavorite',
+    'cardpacks-service': './services/cardpacks'
   },
   shim: {
     'angular': {'exports': 'angular'},

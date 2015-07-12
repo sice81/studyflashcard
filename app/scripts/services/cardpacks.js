@@ -33,7 +33,7 @@ define(['angular'], function (angular) {
   }];
 
   angular.module('studyflashcardApp.services', [])
-    .factory('Myfavorite', function () {
+  .factory('Cardpacks', function () {
 
       return {
         all: function () {
