@@ -46,7 +46,7 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
       })
 
       .state('memorizeplayer', {
-        url: '/memorizeplayer/:cardId',
+        url: '/memorizeplayer/:cardPackId',
         templateUrl: 'templates/memorizeplayer.html',
         controller: 'MemorizePlayerCtrl'
       })
