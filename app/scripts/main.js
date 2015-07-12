@@ -14,6 +14,7 @@ require.config({
     'chart': '../lib/Chart',
     'ionic': '../lib/ionic',
     'ionic-angular': '../lib/ionic-angular',
+    'swiper': '../lib/swiper',
     'app': 'app',
     'route': 'route',
     'signin-ctrl': './controllers/signin',
