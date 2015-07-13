@@ -9,15 +9,17 @@
   }
 
   .swiper-container {
-    width: 500px;
     height: 300px;
     margin: 20px auto;
   }
 
   .swiper-slide {
+    border-radius: 15px;
     text-align: center;
     font-size: 18px;
     background: #fff;
+    padding-left: 5px;
+    padding-right: 5px;
 
     /* Center slide text vertically */
     display: -webkit-box;
@@ -38,31 +40,32 @@
 <ion-view view-title="Memorize Player">
   <ion-content>
     <div class="body">
-      <a class="assertive">틀림 : {{data.wrong}}</a>
-      <a class="calm">맞음 : {{data.right}}</a>
+      ({{range.progress}} / {{range.max}})
+
+      <a class="assertive">틀림 : {{getWrongCount()}}</a>
+      <a class="calm">맞음 : {{getRightCount()}}</a>
+
+      <!-- Select -->
+      <div class="bar bar-light" ng-show="isShowResult">
+        <button ng-click="addWrong()" class="button button-assertive">틀림</button>
+        <div class="title">어땠나요?</div>
+        <button ng-click="addRight()" class="button button-calm">맞음</button>
+      </div>
 
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <!--<div class="swiper-slide">Slide 1</div>-->
-          <div class="swiper-slide" ng-repeat="card in data.cardpack.cards" on-finish-render>
-            <div ng-bind-html="card.front" ng-click="showBack()"></div>
+          <div class="swiper-slide" ng-repeat="card in cards" on-finish-render>
+            <div ng-bind-html="card.type=='front'?card.front:card.back" ng-click="toggle($index)"></div>
           </div>
         </div>
       </div>
 
       <!-- Range -->
       <div class="item range">
-        <input type="range" name="volume" min="0" max="{{data.max}}" value="0" ng-model="data.current">
+        <input type="range" name="volume" min="0" max="{{range.max}}" value="0" ng-model="range.progress">
      </div>
 
-      {{data.current}}
-
-      <!-- Select -->
-      <div class="bar bar-light">
-        <button ng-click="wrong()" class="button button-assertive">틀림</button>
-        <div class="title">어땠나요?</div>
-        <button ng-click="right()" class="button button-calm">맞음</button>
-      </div>
     </div>
   </ion-content>
 </ion-view>

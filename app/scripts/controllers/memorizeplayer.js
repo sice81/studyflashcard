@@ -6,12 +6,7 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
       restrict: 'A',
       link: function ($scope, element, attr) {
         if ($scope.$last === true) {
-          var swiper = new Swiper('.swiper-container', {
-            onTransitionEnd: function(swiper) {
-              console.log('onTransitionEnd', swiper);
-              $scope.$emit('onChangeProgress', swiper.activeIndex);
-            }
-          });
+          $scope.$emit('onFinishRender');
         }
       }
     }
@@ -20,29 +15,108 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
   app.controller('MemorizePlayerCtrl', function ($scope, $stateParams, Cardpacks) {
     console.log('MemorizePlayerCtrl');
 
-    $scope.$on('onChangeProgress', function(event, index){
-      console.log('onChangeProgress', index);
-      $scope.data.current = index;
-      $scope.$apply();
+    var TYPE = {
+      FRONT: 'front',
+      BACK: 'back'
+    };
+
+    $scope.$on('onFinishRender', function (event) {
+      console.log('onFinishRender');
+
+      var swiper = new Swiper('.swiper-container', {
+        onTransitionStart: function (swiper) {
+          $scope.$apply(function(){
+            if (swiper.previousIndex !== swiper.activeIndex) {
+              $scope.cards[swiper.previousIndex].type = TYPE.FRONT;
+              $scope.isShowResult = false;
+            }
+          });
+        },
+
+        onTransitionEnd: function (swiper) {
+          console.log('onTransitionEnd', swiper);
+          $scope.$apply(function(){
+            $scope.range.progress = swiper.activeIndex;
+          });
+        }
+      });
+
+      $scope.swiper = swiper;
     });
 
-    $scope.data = {};
-    $scope.data.cardpack = Cardpacks.get($stateParams.cardPackId);
-    $scope.data.max = $scope.data.cardpack.cards.length-1;
-    $scope.data.current = 0;
-    $scope.data.right = 0;
-    $scope.data.wrong = 0;
+    var cardpack = Cardpacks.get($stateParams.cardPackId);
 
-    $scope.right = function () {
-      $scope.data.right++;
+    $scope.cards = angular.extend({}, cardpack.cards);
+    $scope.range = {};
+    $scope.range.progress = 0;
+    $scope.range.max = cardpack.cards.length-1;
+    $scope.right = 0;
+    $scope.wrong = 0;
+    $scope.isShowResult = false;
+    $scope.wrongArr = [];
+    $scope.rightArr = [];
+
+    for (var i in $scope.cards) {
+      var card = $scope.cards[i];
+      card.type = TYPE.FRONT;
+    }
+
+    $scope.addRight = function () {
+      var id = $scope.cards[$scope.range.progress].id;
+
+      // Notfound
+      if ($scope.rightArr.indexOf(id) < 0) {
+        $scope.rightArr.push(id);
+      }
+
+      // 이미 틀림 처리한 경우 제거
+      var wrongId = $scope.wrongArr.indexOf(id);
+      if (wrongId >= 0) {
+        $scope.wrongArr.splice(wrongId, 1);
+      }
     };
 
-    $scope.wrong = function () {
-      $scope.data.wrong++;
+    $scope.addWrong = function () {
+      var id = $scope.cards[$scope.range.progress].id;
+
+      // Notfound
+      if ($scope.wrongArr.indexOf(id) < 0) {
+        $scope.wrongArr.push(id);
+      }
+
+      // 이미 맞음 처리한 경우 제거
+      var rightId = $scope.rightArr.indexOf(id);
+      if (rightId >= 0) {
+        $scope.rightArr.splice(rightId, 1);
+      }
     };
 
-    $scope.showBack = function () {
-      console.log('showBack');
+    $scope.getRightCount = function() {
+      return $scope.rightArr.length;
     };
+
+    $scope.getWrongCount = function() {
+      return $scope.wrongArr.length;
+    };
+
+    $scope.toggle = function (index) {
+      console.log('showBack', index);
+
+      var card = $scope.cards[index];
+
+      if (card.type == TYPE.FRONT) {
+        card.type = TYPE.BACK;
+        $scope.isShowResult = true;
+      } else {
+        card.type = TYPE.FRONT;
+        $scope.isShowResult = false;
+      }
+    };
+
+    $scope.$watch('range.progress', function(newValue, oldValue){
+      if ($scope.swiper) {
+        $scope.swiper.slideTo(newValue);
+      }
+    }, true);
   });
 });
