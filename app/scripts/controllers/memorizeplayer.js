@@ -12,7 +12,7 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     }
   });
 
-  app.controller('MemorizePlayerCtrl', function ($scope, $stateParams, Cardpacks) {
+  app.controller('MemorizePlayerCtrl', function ($scope, $stateParams, Cardpacks, $timeout, $ionicLoading) {
     console.log('MemorizePlayerCtrl');
 
     var TYPE = {
@@ -34,7 +34,7 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     $scope.$on('onFinishRender', function (event) {
       console.log('onFinishRender');
 
-      var swiper = new Swiper('.swiper-container', {
+      $scope.swiper = new Swiper('.swiper-container', {
         onTransitionStart: function (swiper) {
           $scope.safeApply(function () {
             $scope.cards[swiper.previousIndex].type = TYPE.FRONT;
@@ -49,13 +49,13 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
           });
         }
       });
-
-      $scope.swiper = swiper;
     });
 
     var cardpack = Cardpacks.get($stateParams.cardPackId);
 
-    $scope.cards = angular.extend({}, cardpack.cards);
+    //$scope.cards = angular.extend({}, cardpack.cards);
+    $scope.cards = [];
+    angular.copy(cardpack.cards, $scope.cards);
     $scope.range = {};
     $scope.range.progress = 0;
     $scope.range.max = cardpack.cards.length - 1;
@@ -67,11 +67,16 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
 
     for (var i in $scope.cards) {
       var card = $scope.cards[i];
+      card.isWrong = false;
+      card.isRight = false;
       card.type = TYPE.FRONT;
     }
 
     $scope.addRight = function () {
-      var id = $scope.cards[$scope.range.progress].id;
+      var card = $scope.cards[$scope.range.progress];
+      var id = card.id;
+      card.isRight = true;
+      card.isWrong = false;
 
       // Notfound
       if ($scope.rightArr.indexOf(id) < 0) {
@@ -88,7 +93,10 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     };
 
     $scope.addWrong = function () {
-      var id = $scope.cards[$scope.range.progress].id;
+      var card = $scope.cards[$scope.range.progress];
+      var id = card.id;
+      card.isWrong = true;
+      card.isRight = false;
 
       // Notfound
       if ($scope.wrongArr.indexOf(id) < 0) {
@@ -110,6 +118,14 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
 
     $scope.getWrongCount = function () {
       return $scope.wrongArr.length;
+    };
+
+    $scope.isRight = function (index) {
+      return $scope.cards[index].isRight ? $scope.cards[index].isRight : false;
+    };
+
+    $scope.isWrong = function (index) {
+      return $scope.cards[index].isWrong ? $scope.cards[index].isWrong : false;
     };
 
     $scope.toggle = function (index) {

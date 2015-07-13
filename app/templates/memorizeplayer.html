@@ -54,9 +54,12 @@
 
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <!--<div class="swiper-slide">Slide 1</div>-->
-          <div class="swiper-slide" ng-repeat="card in cards" on-finish-render>
-            <div ng-bind-html="card.type=='front'?card.front:card.back" ng-click="toggle($index)"></div>
+          <div class="swiper-slide" ng-repeat="card in cards" on-finish-render ng-click="toggle($index)">
+            <div style="position:absolute; right:10px; top:5px;">
+              <i ng-show="isRight($index)" class="calm icon ion-ios-checkmark-outline"></i>
+              <i ng-show="isWrong($index)" class="assertive icon ion-ios-close-outline"></i>
+            </div>
+            <div ng-bind-html="card.type=='front'?card.front:card.back"></div>
           </div>
         </div>
       </div>
