@@ -3,6 +3,16 @@ define(['angular', 'app'], function (angular, app) {
 
   console.log('Cardpacks');
 
+  var cardsBig = [];
+  for (var i=0; i<100; i++) {
+    cardsBig.push({
+      id: 'card'+i,
+      front: '<h1>' + i + 'char의 표현 범위는?</h1>',
+      back: '<h1>0~2의 16승 - 1</h1>',
+      hint: '브로'
+    });
+  }
+
   var cardpacks = [
     {
       id: 101,
@@ -36,14 +46,7 @@ define(['angular', 'app'], function (angular, app) {
     {
       id: 102,
       name: '자바 제1장 요약 10선',
-      cards: [
-        {
-          id: 'card04',
-          front: '<h1>char의 표현 범위는?</h1>',
-          back: '<h1>0~2의 16승 - 1</h1>',
-          hint: '브로'
-        }
-      ]
+      cards: cardsBig
     }
   ];
 
