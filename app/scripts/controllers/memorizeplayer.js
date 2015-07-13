@@ -35,6 +35,8 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
       console.log('onFinishRender');
 
       $scope.swiper = new Swiper('.swiper-container', {
+        spaceBetween: 10,
+        threshold: 10,
         onTransitionStart: function (swiper) {
           $scope.safeApply(function () {
             $scope.cards[swiper.previousIndex].type = TYPE.FRONT;

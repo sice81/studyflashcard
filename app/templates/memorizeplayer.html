@@ -40,17 +40,9 @@
 <ion-view view-title="Memorize Player">
   <ion-content>
     <div class="body">
-      ({{range.progress}} / {{range.max}})
-
       <a class="assertive">틀림 : {{getWrongCount()}}</a>
       <a class="calm">맞음 : {{getRightCount()}}</a>
-
-      <!-- Select -->
-      <div class="bar bar-light" ng-show="isShowResult">
-        <button ng-click="addWrong()" class="button button-assertive">틀림</button>
-        <div class="title">어땠나요?</div>
-        <button ng-click="addRight()" class="button button-calm">맞음</button>
-      </div>
+      정답률 : {{ getRightCount() / (range.max+1) * 100}}%
 
       <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -68,6 +60,15 @@
       <div class="item range">
         <input type="range" name="volume" min="0" max="{{range.max}}" value="0" ng-model="range.progress">
      </div>
+
+      <center>{{range.progress+1}} / {{range.max+1}}</center>
+
+      <!-- Select -->
+      <div class="bar bar-light" ng-show="isShowResult">
+        <button ng-click="addWrong()" class="button button-assertive">틀림</button>
+        <div class="title">결과는?</div>
+        <button ng-click="addRight()" class="button button-calm">맞음</button>
+      </div>
 
     </div>
   </ion-content>
