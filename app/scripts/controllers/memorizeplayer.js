@@ -20,22 +20,31 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
       BACK: 'back'
     };
 
+    $scope.safeApply = function (fn) {
+      var phase = this.$root.$$phase;
+      if (phase == '$apply' || phase == '$digest') {
+        if (fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
+
     $scope.$on('onFinishRender', function (event) {
       console.log('onFinishRender');
 
       var swiper = new Swiper('.swiper-container', {
         onTransitionStart: function (swiper) {
-          $scope.$apply(function(){
-            if (swiper.previousIndex !== swiper.activeIndex) {
-              $scope.cards[swiper.previousIndex].type = TYPE.FRONT;
-              $scope.isShowResult = false;
-            }
+          $scope.safeApply(function () {
+            $scope.cards[swiper.previousIndex].type = TYPE.FRONT;
+            $scope.isShowResult = false;
           });
         },
 
         onTransitionEnd: function (swiper) {
           console.log('onTransitionEnd', swiper);
-          $scope.$apply(function(){
+          $scope.safeApply(function () {
             $scope.range.progress = swiper.activeIndex;
           });
         }
@@ -49,7 +58,7 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     $scope.cards = angular.extend({}, cardpack.cards);
     $scope.range = {};
     $scope.range.progress = 0;
-    $scope.range.max = cardpack.cards.length-1;
+    $scope.range.max = cardpack.cards.length - 1;
     $scope.right = 0;
     $scope.wrong = 0;
     $scope.isShowResult = false;
@@ -74,6 +83,8 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
       if (wrongId >= 0) {
         $scope.wrongArr.splice(wrongId, 1);
       }
+
+      $scope.swiper.slideNext();
     };
 
     $scope.addWrong = function () {
@@ -89,13 +100,15 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
       if (rightId >= 0) {
         $scope.rightArr.splice(rightId, 1);
       }
+
+      $scope.swiper.slideNext();
     };
 
-    $scope.getRightCount = function() {
+    $scope.getRightCount = function () {
       return $scope.rightArr.length;
     };
 
-    $scope.getWrongCount = function() {
+    $scope.getWrongCount = function () {
       return $scope.wrongArr.length;
     };
 
@@ -113,7 +126,7 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
       }
     };
 
-    $scope.$watch('range.progress', function(newValue, oldValue){
+    $scope.$watch('range.progress', function (newValue, oldValue) {
       if ($scope.swiper) {
         $scope.swiper.slideTo(newValue);
       }
