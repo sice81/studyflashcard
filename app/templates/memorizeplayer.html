@@ -61,7 +61,7 @@
         <input type="range" name="volume" min="0" max="{{range.max}}" value="0" ng-model="range.progress">
      </div>
 
-      <center>{{range.progress+1}} / {{range.max+1}}</center>
+      <center>{{current}} / {{range.max+1}}</center>
 
       <!-- Select -->
       <div class="bar bar-light" ng-show="isShowResult">

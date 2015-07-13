@@ -38,19 +38,24 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
         spaceBetween: 10,
         threshold: 10,
         onTransitionStart: function (swiper) {
-          $scope.safeApply(function () {
-            $scope.cards[swiper.previousIndex].type = TYPE.FRONT;
-            $scope.isShowResult = false;
-          });
+          if (swiper.previousIndex !== swiper.activeIndex) {
+            $scope.safeApply(function () {
+              $scope.cards[swiper.previousIndex].type = TYPE.FRONT;
+              $scope.isShowResult = false;
+            });
+          }
         },
 
         onTransitionEnd: function (swiper) {
           console.log('onTransitionEnd', swiper);
           $scope.safeApply(function () {
             $scope.range.progress = swiper.activeIndex;
+            $scope.current = swiper.activeIndex + 1;
           });
         }
       });
+
+      $scope.swiper.slideTo($scope.range.progress);
     });
 
     var cardpack = Cardpacks.get($stateParams.cardPackId);
@@ -60,6 +65,7 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     angular.copy(cardpack.cards, $scope.cards);
     $scope.range = {};
     $scope.range.progress = 0;
+    $scope.current = 1;
     $scope.range.max = cardpack.cards.length - 1;
     $scope.right = 0;
     $scope.wrong = 0;
@@ -145,8 +151,14 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     };
 
     $scope.$watch('range.progress', function (newValue, oldValue) {
+      var p;
       if ($scope.swiper) {
-        $scope.swiper.slideTo(newValue);
+        if (p) {
+          $timeout.cancel(p);
+        }
+        p = $timeout(function () {
+          $scope.swiper.slideTo(newValue);
+        }, 100);
       }
     }, true);
   });
