@@ -11,9 +11,18 @@
       </label>
     </div>
     <div class="padding">
-      <button class="button button-block button-positive" ng-click="signIn(user)">
+      <button class="button button-block" ng-click="signIn(user)">
         Sign-In
       </button>
+      <button class="button button-block button-positive" ng-click="signInFacebook()">
+        <img src="images/social-icons/facebook.png">
+        sign in with facebook
+      </button>
+      <button class="button button-block button-assertive" ng-click="signInGooglePlus()">
+        <img src="images/social-icons/googleplus.png">
+        sign in with google+
+      </button>
+
       <p class="text-center">
         <a href="#/forgot-password">Forgot password</a>
       </p>

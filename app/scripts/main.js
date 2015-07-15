@@ -24,6 +24,7 @@ require.config({
     'memorizeplayer-ctrl': './controllers/memorizeplayer',
     'services': './services',
     'myfavorite-service': './services/myfavorite',
+    'oauth-facebook': 'oauth-facebook',
     'cardpacks-service': './services/cardpacks'
   },
   shim: {
