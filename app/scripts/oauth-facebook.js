@@ -25,21 +25,21 @@ define(['angular'], function (angular) {
   }(document));
   // Facebbok OAuth init - END
 
-  // Google OAuth Init
-  (function () {
-    var po = document.createElement('script');
-    po.type = 'text/javascript';
-    po.async = true;
-    po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(po, s);
-  })();
-
-  function onLoadCallback() {
-    // Replace the API key with yours
-    gapi.client.setApiKey('AIzaSyC5JgBIrjOGKDAIZLcsVHvgkjjGkkrZTqk');
-    gapi.client.load('plus', 'v1', function () {
-    });
-  }
-  // Google Oauth Init - END
+//  // Google OAuth Init
+//  (function () {
+//    var po = document.createElement('script');
+//    po.type = 'text/javascript';
+//    po.async = true;
+//    po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+//    var s = document.getElementsByTagName('script')[0];
+//    s.parentNode.insertBefore(po, s);
+//  })();
+//
+//  function onLoadCallback() {
+//    // Replace the API key with yours
+//    gapi.client.setApiKey('AIzaSyC5JgBIrjOGKDAIZLcsVHvgkjjGkkrZTqk');
+//    gapi.client.load('plus', 'v1', function () {
+//    });
+//  }
+//  // Google Oauth Init - END
 });

@@ -1,17 +1,67 @@
 define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
   'use strict';
 
-  app.controller('SigninCtrl', function ($scope, $state, $http, $window) {
+  app.controller('SigninCtrl', function ($scope, $state, $http, $window, $httpParamSerializerJQLike) {
     console.log('SigninCtrl');
 
+    function req(accessToken, userId) {
+      return $http({
+    	  url: 'http://127.0.0.1:8080/api/auth/facebook',
+    	  method: 'POST',
+    	  data: $httpParamSerializerJQLike({accessToken: accessToken, userId: userId}), // Make sure to inject the service
+    	  headers: {
+    	    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+    	  }
+    	});
+    }
+
     $scope.signInFacebook = function () {
-      FB.login(function (response) {
-        if (response.authResponse) {
-          getUserInfo();
+      FB.getLoginStatus(function (response) {
+        console.log('FB.getLoginStatus', response);
+
+        var status = response.status;
+        var auth = response.authResponse;
+
+        if (auth) {
+          if (status === 'connected') {
+            req(auth.accessToken, auth.userID)
+            .success(function(response){
+            	if (response) {
+            		$state.go('tab.dashboard');
+            	}
+            });
+          } else {
+            goLogin();
+          }
         } else {
           console.log('User cancelled login or did not fully authorize.');
         }
-      }, {scope: 'email,user_photos,user_videos'});
+      });
+
+      function goLogin() {
+        FB.login(function (response) {
+          console.log('FB.login', response);
+
+          var status = response.status;
+          var auth = response.authResponse;
+
+          if (auth) {
+            if (status === 'connected') {
+              req(auth.accessToken, auth.userID);
+            } else {
+              goLogin();
+            }
+          } else {
+            console.log('User cancelled login or did not fully authorize.');
+          }
+
+//        if (response.authResponse) {
+//          getUserInfo();
+//        } else {
+//          console.log('User cancelled login or did not fully authorize.');
+//        }
+        }, {scope: 'email,user_photos,user_videos'});
+      }
 
       function getUserInfo() {
         // get basic info
@@ -70,7 +120,7 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
             var user = {};
             user.name = resp.displayName;
             user.email = userEmail;
-            if(resp.gender) {
+            if (resp.gender) {
               resp.gender.toString().toLowerCase() === 'male' ? user.gender = 'M' : user.gender = 'F';
             } else {
               user.gender = '';

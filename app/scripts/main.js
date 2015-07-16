@@ -60,7 +60,7 @@ require([
   'app',
   'route',
   //'angular-route',
-  //'angular-cookies',
+  'angular-cookies',
   'angular-sanitize',
   //'angular-resource',
   'angular-animate',
