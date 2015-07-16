@@ -1,19 +1,20 @@
 /*jshint unused: vars */
 require.config({
   baseUrl: 'scripts',
+  waitSeconds: 60,
   paths: {
-    'angular': '../lib/angular',
+    'angular': '../lib/angular.min',
     'angular-animate': '../lib/angular-animate',
     'angular-cookies': '../lib/angular-cookies',
     'angular-resource': '../lib/angular-resource',
     'angular-route': '../lib/angular-route',
     'angular-sanitize': '../lib/angular-sanitize',
     'angular-touch': '../lib/angular-touch',
-    'angular-ui-router': '../lib/angular-ui-router',
+    'angular-ui-router': '../lib/angular-ui-router.min',
     'angular-chart': '../lib/angular-chart',
     'chart': '../lib/Chart',
-    'ionic': '../lib/ionic',
-    'ionic-angular': '../lib/ionic-angular',
+    'ionic': '../lib/ionic.min',
+    'ionic-angular': '../lib/ionic-angular.min',
     'swiper': '../lib/swiper',
     'app': 'app',
     'route': 'route',
@@ -65,7 +66,7 @@ require([
   'angular-animate',
   //'angular-touch',
   'angular-ui-router',
-  'angular-chart',
+  //'angular-chart',
   'ionic',
   'ionic-angular'
 ], function (angular, app) {
