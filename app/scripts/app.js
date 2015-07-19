@@ -28,5 +28,32 @@ define(['angular'], function (angular) {
     $scope.csses = ['styles/main.css', 'styles/ionic.css', 'styles/style.css', 'styles/swiper.css', 'styles/angular-chart.css'];
   });
 
+  module.factory('SessionService', function () {
+    return {
+      isAnonymus: false
+    };
+  });
+
+  module.factory('sessionInjector', ['SessionService', function (SessionService) {
+    var sessionInjector = {
+      request: function (config) {
+        console.log('request', config);
+
+        config.headers['x-session-token'] = 'ef89usdf9u';
+
+        //if (!SessionService.isAnonymus) {
+        //  config.headers['x-session-token'] = SessionService.token;
+        //}
+        return config;
+      }
+    };
+    return sessionInjector;
+  }]);
+
+  module.config(['$httpProvider', function ($httpProvider) {
+    console.log('config.$httpProvider');
+    $httpProvider.interceptors.push('sessionInjector');
+  }]);
+
   return module;
 });
