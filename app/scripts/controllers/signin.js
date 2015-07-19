@@ -26,7 +26,7 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
           if (status === 'connected') {
             req(auth.accessToken, auth.userID);
           } else {
-            goLogin();
+            console.log('status=' + status);
           }
         } else {
           console.log('User cancelled login or did not fully authorize.');
@@ -45,7 +45,7 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
           if (status === 'connected') {
             req(auth.accessToken, auth.userID)
             .success(function(response){
-            	if (response) {
+            	if (response.result) {
             		$state.go('tab.dashboard');
             	}
             });
@@ -53,7 +53,7 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
             goLogin();
           }
         } else {
-          console.log('User cancelled login or did not fully authorize.');
+          goLogin();
         }
       });
 
