@@ -1,6 +1,10 @@
+var CDN_URL = 'http://127.0.0.1:9000/';
+var CDN_VERSION = '20150719_1630';
+
 /*jshint unused: vars */
 require.config({
-  baseUrl: 'scripts',
+  baseUrl: CDN_URL + 'scripts',
+  urlArgs: 'v=' + CDN_VERSION,
   waitSeconds: 60,
   paths: {
     'angular': '../lib/angular.min',

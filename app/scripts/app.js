@@ -2,7 +2,11 @@ define(['angular'], function (angular) {
   'use strict';
 
   var module = angular.module('studyflashcardApp', ['ionic', 'chart.js', 'studyflashcardApp.controllers', 'studyflashcardApp.services'])
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform, $rootScope) {
+      $rootScope.config = {};
+      $rootScope.config.CDN_URL = CDN_URL;
+      $rootScope.config.CDN_VERSION = CDN_VERSION;
+
       $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -17,6 +21,11 @@ define(['angular'], function (angular) {
     });
 
   angular.module('studyflashcardApp.controllers', []);
+
+  module.controller('HeadCtrl', function ($scope) {
+    console.log('HeadCtrl');
+    $scope.csses = ['styles/main.css', 'styles/ionic.css', 'styles/style.css', 'styles/swiper.css', 'styles/angular-chart.css'];
+  });
 
   return module;
 });
