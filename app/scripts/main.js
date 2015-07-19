@@ -1,5 +1,6 @@
-var CDN_URL = 'http://127.0.0.1:9000/';
+var CDN_URL = 'http://localhost:9000/';
 var CDN_VERSION = '20150719_1630';
+var API_URL = 'http://localhost:8080/';
 
 /*jshint unused: vars */
 require.config({

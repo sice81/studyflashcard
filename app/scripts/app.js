@@ -6,6 +6,7 @@ define(['angular'], function (angular) {
       $rootScope.config = {};
       $rootScope.config.CDN_URL = CDN_URL;
       $rootScope.config.CDN_VERSION = CDN_VERSION;
+      $rootScope.config.API_URL = API_URL;
 
       $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

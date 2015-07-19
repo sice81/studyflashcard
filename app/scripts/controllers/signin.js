@@ -6,13 +6,32 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
 
     function req(accessToken, userId) {
       return $http({
-    	  url: 'http://127.0.0.1:8080/api/auth/facebook',
+    	  url: API_URL + 'api/auth/facebook',
     	  method: 'POST',
     	  data: $httpParamSerializerJQLike({accessToken: accessToken, userId: userId}), // Make sure to inject the service
     	  headers: {
     	    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
     	  }
     	});
+    }
+
+    function goLogin() {
+      FB.login(function (response) {
+        console.log('FB.login', response);
+
+        var status = response.status;
+        var auth = response.authResponse;
+
+        if (auth) {
+          if (status === 'connected') {
+            req(auth.accessToken, auth.userID);
+          } else {
+            goLogin();
+          }
+        } else {
+          console.log('User cancelled login or did not fully authorize.');
+        }
+      }, {scope: 'email,user_photos,user_videos'});
     }
 
     $scope.signInFacebook = function () {
@@ -37,31 +56,6 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
           console.log('User cancelled login or did not fully authorize.');
         }
       });
-
-      function goLogin() {
-        FB.login(function (response) {
-          console.log('FB.login', response);
-
-          var status = response.status;
-          var auth = response.authResponse;
-
-          if (auth) {
-            if (status === 'connected') {
-              req(auth.accessToken, auth.userID);
-            } else {
-              goLogin();
-            }
-          } else {
-            console.log('User cancelled login or did not fully authorize.');
-          }
-
-//        if (response.authResponse) {
-//          getUserInfo();
-//        } else {
-//          console.log('User cancelled login or did not fully authorize.');
-//        }
-        }, {scope: 'email,user_photos,user_videos'});
-      }
 
       function getUserInfo() {
         // get basic info
