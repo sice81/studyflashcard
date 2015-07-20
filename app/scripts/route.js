@@ -1,25 +1,31 @@
-define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ctrl', 'settings-ctrl', 'memorizeplayer-ctrl'], function (angular, app) {
+define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ctrl', 'settings-ctrl', 'memorizeplayer-ctrl', 'cardpack-create-ctrl'], function (angular, app) {
   'use strict';
 
   app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('signin', {
         url: '/signin',
-        templateUrl: 'templates/signin.html',
+        templateUrl: CDN_URL + 'templates/signin.html' + '?v=' + CDN_VERSION,
         controller: 'SigninCtrl'
+      })
+
+      .state('cardpack-create', {
+        url: '/cardpacks/new',
+        templateUrl: CDN_URL + 'templates/cardpack-create.html' + '?v=' + CDN_VERSION,
+        controller: 'CardpackCreateCtrl'
       })
 
       .state('tab', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'templates/tabs.html'
+        templateUrl: CDN_URL + 'templates/tabs.html' + '?v=' + CDN_VERSION
       })
 
       .state('tab.dashboard', {
         url: '/dashboard',
         views: {
           'tab-dashboard': {
-            templateUrl: 'templates/dashboard.html',
+            templateUrl: CDN_URL + 'templates/dashboard.html' + '?v=' + CDN_VERSION,
             controller: 'DashboardMainCtrl'
           }
         }
@@ -29,7 +35,7 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
         url: '/store',
         views: {
           'tab-store': {
-            templateUrl: 'templates/store.html',
+            templateUrl: CDN_URL + 'templates/store.html' + '?v=' + CDN_VERSION,
             controller: 'StoreCtrl'
           }
         }
@@ -39,7 +45,7 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
         url: '/settings',
         views: {
           'tab-settings': {
-            templateUrl: 'templates/settings.html',
+            templateUrl: CDN_URL + 'templates/settings.html' + '?v=' + CDN_VERSION,
             controller: 'SettingsCtrl'
           }
         }
@@ -47,7 +53,7 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
 
       .state('memorizeplayer', {
         url: '/memorizeplayer/:cardPackId',
-        templateUrl: 'templates/memorizeplayer.html',
+        templateUrl: CDN_URL + 'templates/memorizeplayer.html' + '?v=' + CDN_VERSION,
         controller: 'MemorizePlayerCtrl'
       })
     ;

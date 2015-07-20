@@ -1,7 +1,7 @@
 define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
   'use strict';
 
-  app.controller('SigninCtrl', function ($scope, $state, $http, $window, $httpParamSerializerJQLike) {
+  app.controller('SigninCtrl', function ($scope, $state, $http, $window, $httpParamSerializerJQLike, SessionService) {
     console.log('SigninCtrl');
 
     function req(accessToken, userId) {
@@ -46,6 +46,8 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
             req(auth.accessToken, auth.userID)
             .success(function(response){
             	if (response.result) {
+                SessionService.isAnonymus = false;
+                SessionService.token = response.accessToken;
             		$state.go('tab.dashboard');
             	}
             });

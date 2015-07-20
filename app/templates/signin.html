@@ -17,11 +17,11 @@
         Sign-In
       </button>
       <button class="button button-block button-positive" ng-click="signInFacebook()">
-        <img src="images/social-icons/facebook.png">
+        <img ng-src="{{config.CDN_URL}}images/social-icons/facebook.png">
         sign in with facebook
       </button>
       <button ng-show="isGooglePlus" class="button button-block button-assertive" ng-click="signInGooglePlus()">
-        <img src="images/social-icons/googleplus.png">
+        <img ng-src="{{config.CDN_URL}}images/social-icons/googleplus.png">
         sign in with google+
       </button>
 

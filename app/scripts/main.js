@@ -1,6 +1,14 @@
-var CDN_URL = 'http://localhost:9000/';
-var CDN_VERSION = '20150719_1630';
+//var CDN_URL = 'http://dtgctofxa00xb.cloudfront.net/';
+//var CDN_VERSION = '20150720_2037';
+//var API_URL = 'http://localhost:8080/';
+
+var CDN_URL = '';
+var CDN_VERSION = '';
 var API_URL = 'http://localhost:8080/';
+
+//<script src='/bower_components/textAngular/dist/textAngular-rangy.min.js'></script>
+//  <script src='/bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
+//  <script src='/bower_components/textAngular/dist/textAngular.min.js'></script>
 
 /*jshint unused: vars */
 require.config({
@@ -8,7 +16,7 @@ require.config({
   urlArgs: 'v=' + CDN_VERSION,
   waitSeconds: 60,
   paths: {
-    'angular': '../lib/angular.min',
+    'angular': '../lib/angular',
     'angular-animate': '../lib/angular-animate',
     'angular-cookies': '../lib/angular-cookies',
     'angular-resource': '../lib/angular-resource',
@@ -28,6 +36,7 @@ require.config({
     'store-ctrl': './controllers/store',
     'settings-ctrl': './controllers/settings',
     'memorizeplayer-ctrl': './controllers/memorizeplayer',
+    'cardpack-create-ctrl': './controllers/cardpack-create',
     'services': './services',
     'myfavorite-service': './services/myfavorite',
     'oauth-facebook': 'oauth-facebook',

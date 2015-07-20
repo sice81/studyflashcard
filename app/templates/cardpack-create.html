@@ -1,0 +1,47 @@
+<ion-view view-title="카드팩 만들기">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">타이틀</span>
+        <input type="text" placeholder="타이틀을 적어주세요.">
+      </label>
+    </div>
+
+    <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
+      <ion-item ng-repeat="item in items" class="item">
+
+        <h2>{{item.title}}</h2>
+        <p>{{item.description}}</p>
+
+        <ion-option-button class="button-info" ng-click="openModal($index, item)">
+          Edit
+        </ion-option-button>
+        <ion-delete-button class="ion-minus-circled" ng-click="items.splice($index, 1)">
+        </ion-delete-button>
+        <ion-reorder-button class="ion-navicon" on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+        </ion-reorder-button>
+      </ion-item>
+    </ion-list>
+
+    <button class="button button-clear pull-right">추가</button>
+  </ion-content>
+</ion-view>
+
+<script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Edit</h1>
+      <div class="button button-clear" ng-click="modal.hide()">
+        <span class="icon ion-close"></span>
+      </div>
+    </ion-header-bar>
+    <ion-content>
+      <textarea ng-model="front" style="height:100px;border: groove;border-width: 1px;" class="col">
+      </textarea>
+      <textarea ng-model="back" style="height:100px;border: groove;border-width: 1px;" class="col">
+      </textarea>
+
+      <button ng-click="saveModal(front, back)" class="button button-calm pull-right">저장</button>
+    </ion-content>
+  </ion-modal-view>
+</script>

@@ -25,7 +25,8 @@ define(['angular'], function (angular) {
 
   module.controller('HeadCtrl', function ($scope) {
     console.log('HeadCtrl');
-    $scope.csses = ['styles/main.css', 'styles/ionic.css', 'styles/style.css', 'styles/swiper.css', 'styles/angular-chart.css'];
+    //$scope.csses = ['styles/main.css', 'styles/ionic.css', 'styles/style.css', 'styles/swiper.css', 'styles/angular-chart.css', 'styles/textAngular.css'];
+    $scope.csses = ['styles/ionic.css'];
   });
 
   module.factory('SessionService', function () {
@@ -37,13 +38,11 @@ define(['angular'], function (angular) {
   module.factory('sessionInjector', ['SessionService', function (SessionService) {
     var sessionInjector = {
       request: function (config) {
-        console.log('request', config);
+        //console.log('request', config, SessionService);
 
-        config.headers['x-session-token'] = 'ef89usdf9u';
-
-        //if (!SessionService.isAnonymus) {
-        //  config.headers['x-session-token'] = SessionService.token;
-        //}
+        if (!SessionService.isAnonymus) {
+          config.headers['x-session-token'] = SessionService.token;
+        }
         return config;
       }
     };
