@@ -1,4 +1,4 @@
-define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ctrl', 'settings-ctrl', 'memorizeplayer-ctrl', 'cardpack-create-ctrl'], function (angular, app) {
+define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ctrl', 'settings-ctrl', 'memorizeplayer-ctrl', 'cardpack-create-ctrl', 'cardpack-card-editor-ctrl'], function (angular, app) {
   'use strict';
 
   app.config(function ($stateProvider, $urlRouterProvider) {

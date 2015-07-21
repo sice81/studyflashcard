@@ -1,7 +1,7 @@
-define(['angular'], function (angular) {
+define(['angular', 'angular-tinymce'], function (angular) {
   'use strict';
 
-  var module = angular.module('studyflashcardApp', ['ionic', 'chart.js', 'studyflashcardApp.controllers', 'studyflashcardApp.services'])
+  var module = angular.module('studyflashcardApp', ['ionic', 'ui.tinymce', 'chart.js', 'studyflashcardApp.controllers', 'studyflashcardApp.services'])
     .run(function ($ionicPlatform, $rootScope) {
       $rootScope.config = {};
       $rootScope.config.CDN_URL = CDN_URL;
@@ -25,8 +25,8 @@ define(['angular'], function (angular) {
 
   module.controller('HeadCtrl', function ($scope) {
     console.log('HeadCtrl');
-    //$scope.csses = ['styles/main.css', 'styles/ionic.css', 'styles/style.css', 'styles/swiper.css', 'styles/angular-chart.css', 'styles/textAngular.css'];
-    $scope.csses = ['styles/ionic.css'];
+    $scope.csses = ['styles/main.css', 'styles/ionic.css', 'styles/style.css', 'styles/swiper.css', 'styles/angular-chart.css', 'styles/textAngular.css'];
+    //$scope.csses = ['styles/ionic.css'];
   });
 
   module.factory('SessionService', function () {
