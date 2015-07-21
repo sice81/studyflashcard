@@ -6,13 +6,13 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
 
     function req(accessToken, userId) {
       return $http({
-    	  url: API_URL + 'api/auth/facebook',
-    	  method: 'POST',
-    	  data: $httpParamSerializerJQLike({accessToken: accessToken, userId: userId}), // Make sure to inject the service
-    	  headers: {
-    	    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
-    	  }
-    	});
+        url: API_URL + 'api/auth/facebook',
+        method: 'POST',
+        data: $httpParamSerializerJQLike({accessToken: accessToken, userId: userId}), // Make sure to inject the service
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+        }
+      });
     }
 
     function goLogin() {
@@ -44,13 +44,13 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
         if (auth) {
           if (status === 'connected') {
             req(auth.accessToken, auth.userID)
-            .success(function(response){
-            	if (response.result) {
-                SessionService.isAnonymus = false;
-                SessionService.token = response.accessToken;
-            		$state.go('tab.dashboard');
-            	}
-            });
+              .success(function (response) {
+                if (response.result) {
+                  SessionService.isAnonymus = false;
+                  SessionService.saveToken(response.accessToken);
+                  $state.go('tab.dashboard');
+                }
+              });
           } else {
             goLogin();
           }

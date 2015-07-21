@@ -31,7 +31,13 @@ define(['angular', 'angular-tinymce'], function (angular) {
 
   module.factory('SessionService', function () {
     return {
-      isAnonymus: false
+      isAnonymus: false,
+      saveToken: function(token) {
+        localStorage.setItem('token', token);
+      },
+      loadToken: function() {
+        return localStorage.getItem('token');
+      }
     };
   });
 
@@ -41,7 +47,7 @@ define(['angular', 'angular-tinymce'], function (angular) {
         //console.log('request', config, SessionService);
 
         if (!SessionService.isAnonymus) {
-          config.headers['x-session-token'] = SessionService.token;
+          config.headers['x-session-token'] = SessionService.loadToken();
         }
         return config;
       }

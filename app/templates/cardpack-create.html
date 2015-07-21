@@ -1,14 +1,20 @@
 <ion-view view-title="카드팩 만들기">
+  <ion-nav-buttons side="primary">
+    <button ng-click="sendData(cardpackName, items)" ng-hide="shouldShowDelete" ng-disabled="!isReady" class="button button-clear pull-right">저장</button>
+    <button ng-click="openModal($index, {})" ng-hide="shouldShowDelete" class="button button-clear pull-right">추가</button>
+    <button ng-click="toggleDelete()" ng-show="shouldShowDelete" class="button button-clear pull-right">취소</button>
+  </ion-nav-buttons>
+
   <ion-content>
     <div class="list">
       <label class="item item-input item-stacked-label">
-        <span class="input-label">타이틀</span>
-        <input type="text" placeholder="타이틀을 적어주세요.">
-      </label>
+        <span class="input-label">카드팩명</span>
+        <input ng-model="cardpackName" type="text" placeholder="카드팩명을 적어주세요.">
+      </label> {{cardpackName}}
     </div>
 
     <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
-      <ion-item ng-click="openModal($index, item)" ng-repeat="item in items" class="item">
+      <ion-item on-hold="onHold()" ng-click="openModal($index, item)" ng-repeat="item in items" class="item">
 
         <div ng-bind-html="item.title"></div>
         <div ng-bind-html="item.description"></div>
@@ -22,8 +28,6 @@
         </ion-reorder-button>
       </ion-item>
     </ion-list>
-
-    <button class="button button-clear pull-right">추가</button>
   </ion-content>
 </ion-view>
 

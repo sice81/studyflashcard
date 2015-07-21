@@ -6,7 +6,6 @@
     <file url="file://$PROJECT_DIR$/app/lib/angular-chart.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/lib/angular-tinymce.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/app.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/scripts/controllers/cardpack-card-editor.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/controllers/cardpack-create.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/controllers/dashboard.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/controllers/memorizeplayer.js" charset="UTF-8" />
@@ -17,7 +16,6 @@
     <file url="file://$PROJECT_DIR$/app/scripts/services.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/cardpacks.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/myfavorite.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/templates/cardpack-card-editor.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/templates/cardpack-create.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/templates/memorizeplayer.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/templates/signin.html" charset="UTF-8" />
