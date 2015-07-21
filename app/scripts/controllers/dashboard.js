@@ -27,4 +27,13 @@ define(['angular', 'app', 'angular-chart', 'myfavorite-service'], function (angu
     $scope.shouldShowReorder = false;
     $scope.listCanSwipe = true
   });
+
+  app.controller('Dashboard.MyListCtrl', function ($scope, Cardpacks) {
+    console.log('Dashboard.MyListCtrl');
+    $scope.cardpacks = [];
+
+    Cardpacks.all().success(function(response){
+      $scope.cardpacks = response;
+    });
+  });
 });

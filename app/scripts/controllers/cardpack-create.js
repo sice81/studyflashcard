@@ -19,6 +19,8 @@ define(['angular', 'app'], function (angular, app) {
       theme: 'modern'
     };
 
+    $scope.data = {};
+
     $scope.isEditMode = false;
     $scope.cards = ['card1'];
     $scope.front = 'front';
@@ -80,15 +82,15 @@ define(['angular', 'app'], function (angular, app) {
       //$scope.modal.remove();
     };
 
-    $scope.toggleDelete = function() {
+    $scope.toggleDelete = function () {
       $scope.shouldShowDelete = !$scope.shouldShowDelete;
     };
 
-    $scope.onHold = function() {
+    $scope.onHold = function () {
       $scope.shouldShowDelete = true;
     };
 
-    $scope.validate = function() {
+    $scope.validate = function () {
       if ($scope.items.length <= 0) {
         return false;
       }
@@ -104,13 +106,19 @@ define(['angular', 'app'], function (angular, app) {
       return true;
     };
 
-    $scope.sendData = function (cardpackName, items) {
-      //var items = $scope.items;
+    function S4() {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+
+    $scope.sendData = function () {
+      var cardpackName = $scope.data.name;
+      var items = $scope.items;
       var cards = [];
 
       for (var i in items) {
         var item = items[i];
         cards.push({
+          id: S4() + S4() + S4() + S4(),
           front: item.title,
           back: item.description
         });
@@ -133,7 +141,7 @@ define(['angular', 'app'], function (angular, app) {
         headers: {
           'Content-Type': 'application/json; charset=utf-8'
         }
-      }).success(function(){
+      }).success(function () {
         alert('send success');
       });
     };

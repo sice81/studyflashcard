@@ -58,27 +58,31 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
       $scope.swiper.slideTo($scope.range.progress);
     });
 
-    var cardpack = Cardpacks.get($stateParams.cardPackId);
+    Cardpacks.get($stateParams.cardPackId)
+      .success(function (response) {
+        var cardpack = response;
+        angular.copy(cardpack.cards, $scope.cards);
+        $scope.range.max = cardpack.cards.length - 1;
+
+        for (var i in $scope.cards) {
+          var card = $scope.cards[i];
+          card.isWrong = false;
+          card.isRight = false;
+          card.type = TYPE.FRONT;
+        }
+      });
 
     //$scope.cards = angular.extend({}, cardpack.cards);
     $scope.cards = [];
-    angular.copy(cardpack.cards, $scope.cards);
     $scope.range = {};
     $scope.range.progress = 0;
     $scope.current = 1;
-    $scope.range.max = cardpack.cards.length - 1;
+    $scope.range.max = 0;
     $scope.right = 0;
     $scope.wrong = 0;
     $scope.isShowResult = false;
     $scope.wrongArr = [];
     $scope.rightArr = [];
-
-    for (var i in $scope.cards) {
-      var card = $scope.cards[i];
-      card.isWrong = false;
-      card.isRight = false;
-      card.type = TYPE.FRONT;
-    }
 
     $scope.addRight = function () {
       var card = $scope.cards[$scope.range.progress];

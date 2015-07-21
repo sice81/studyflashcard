@@ -29,13 +29,21 @@
     </div>
 
     <div class="list card">
-      <div class="item item-divider">내 카드팩</div>
+      <div class="item item-divider">내 카드팩 <a ng-href="#/cardpacks/new">+ 카드 만들기</a></div>
       <div class="item item-body">
-        <div>
-          내가 만든 카드팩이 없습니다.
-        </div>
-        <a ng-href="#/cardpacks/new">+ 카드 만들기</a>
+
+        <ion-list ng-controller="Dashboard.MyListCtrl">
+          <ion-item ng-repeat="cardpack in cardpacks">
+            <a ng-href="#/memorizeplayer/{{cardpack.cardpackId}}">{{cardpack.cardpackName}}</a>
+          </ion-item>
+        </ion-list>
       </div>
+
+      <div>
+        내가 만든 카드팩이 없습니다.
+      </div>
+      <a ng-href="#/cardpacks/new">+ 카드 만들기</a>
+
     </div>
   </ion-content>
 </ion-view>
