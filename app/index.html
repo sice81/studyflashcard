@@ -30,26 +30,29 @@
 
 <script>
   (function () {
-    var CDN_VERSION = '20150721_2230';
+    var CDN_VERSION = '20150721_2245';
 
     var SETTINGS = {
       // LCL
       'localhost': {
         CDN_URL: '',
         CDN_VERSION: '',
-        API_URL: 'http://localhost:8080/'
+        API_URL: 'http://localhost:8080/',
+        FACEBOOK_APP_ID: '107927449553864'
       },
       // DEV
       'genius-study-dev.appspot.com': {
         CDN_URL: 'http://dtgctofxa00xb.cloudfront.net/',
         CDN_VERSION: CDN_VERSION,
-        API_URL: 'http://localhost:8080/'
+        API_URL: 'http://localhost:8080/',
+        FACEBOOK_APP_ID: '693229534144984'
       },
       // PRD
       'genius-study.appspot.com': {
         CDN_URL: 'http://dtgctofxa00xb.cloudfront.net/',
         CDN_VERSION: CDN_VERSION,
-        API_URL: 'http://localhost:8080/'
+        API_URL: 'http://localhost:8080/',
+        FACEBOOK_APP_ID: '982996775078730'
       }
     };
 
@@ -60,6 +63,7 @@
     window.CDN_URL = window.setting.CDN_URL;
     window.CDN_VERSION = window.setting.CDN_VERSION;
     window.API_URL = window.setting.API_URL;
+    window.FACEBOOK_APP_ID = window.setting.FACEBOOK_APP_ID;
 
     var e = document.createElement('script');
     e.setAttribute('src', setting.CDN_URL + 'lib/require.js?v=' + setting.CDN_VERSION);

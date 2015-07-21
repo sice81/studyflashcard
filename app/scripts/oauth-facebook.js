@@ -4,7 +4,7 @@ define(['angular'], function (angular) {
   // Facebbok OAuth init
   window.fbAsyncInit = function () {
     FB.init({
-      appId: '982996775078730', // Replace the App ID with yours
+      appId: FACEBOOK_APP_ID, // Replace the App ID with yours
       status: true, // check login status
       cookie: true, // enable cookies to allow the server to access the session
       xfbml: true  // parse XFBML
