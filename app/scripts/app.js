@@ -32,7 +32,13 @@ define(['angular', 'angular-tinymce'], function (angular) {
   module.factory('SessionService', function () {
     return {
       isAnonymus: false,
-      saveToken: function(token) {
+      saveUserId: function(userId) {
+        localStorage.setItem('userId', userId);
+      },
+      loadUserId: function() {
+        return localStorage.getItem('userId');
+      },
+      saveToken: function(token, userId) {
         localStorage.setItem('token', token);
       },
       loadToken: function() {

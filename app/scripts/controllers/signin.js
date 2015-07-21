@@ -47,6 +47,7 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
               .success(function (response) {
                 if (response.result) {
                   SessionService.isAnonymus = false;
+                  SessionService.saveUserId(response.userId);
                   SessionService.saveToken(response.accessToken);
                   $state.go('tab.dashboard');
                 }

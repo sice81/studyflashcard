@@ -1,7 +1,7 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $location, $state, $ionicPopover, $ionicModal, $http) {
+  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $location, $state, $ionicPopover, $ionicModal, $http, SessionService) {
     console.log('CardpackCreateCtrl');
     //$scope.shouldShowDelete = true;
     //$scope.shouldShowReorder = true;
@@ -127,7 +127,7 @@ define(['angular', 'app'], function (angular, app) {
       };
 
       $http({
-        url: API_URL + 'api/app/v1/users/' + 'fb-974273282604443' + '/cardpacks',
+        url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks',
         method: "POST",
         data: cardpackParam,
         headers: {
