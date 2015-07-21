@@ -1,14 +1,14 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackCreateCtrl', function ($scope, $state, $ionicPopover, $ionicModal) {
+  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $location, $state, $ionicPopover, $ionicModal, $timeout) {
     console.log('CardpackCreateCtrl');
     //$scope.shouldShowDelete = true;
     //$scope.shouldShowReorder = true;
     $scope.listCanSwipe = true;
 
     $scope.items = [];
-    for (var i=0; i<10; i++) {
+    for (var i = 0; i < 10; i++) {
       $scope.items.push({
         title: 'title' + i,
         description: 'desc' + i
@@ -16,13 +16,13 @@ define(['angular', 'app'], function (angular, app) {
     }
 
     $scope.tinymceOptions = {
-      onChange: function(e) {
+      onChange: function (e) {
         // put logic here for keypress and cut/paste changes
       },
       inline: false,
-      plugins : 'advlist autolink link image lists charmap print preview',
+      plugins: 'advlist autolink link image lists charmap print preview',
       skin: 'lightgray',
-      theme : 'modern'
+      theme: 'modern'
     };
 
     $scope.isEditMode = false;
@@ -39,13 +39,13 @@ define(['angular', 'app'], function (angular, app) {
     //  $scope.modal = modal;
     //});
 
-    $scope.$on('onChange', function(event, args){
+    $scope.$on('onChange', function (event, args) {
       console.log('onChange', event, args);
       $scope.items[args.index].title = args.front;
       $scope.items[args.index].description = args.back;
     });
 
-    $scope.goEditor = function(index, item) {
+    $scope.goEditor = function (index, item) {
       console.log('goEditor', index, item);
       $state.go('cardpack-card-editor', {
         'index': index,
@@ -54,7 +54,7 @@ define(['angular', 'app'], function (angular, app) {
       });
     };
 
-    $scope.openModal = function(index, item) {
+    $scope.openModal = function (index, item) {
       console.log('openModal', $scope.modal);
 
       $scope.currentIndex = index;
@@ -67,39 +67,37 @@ define(['angular', 'app'], function (angular, app) {
         $ionicModal.fromTemplateUrl('my-modal.html', {
           scope: $scope,
           animation: 'slide-in-up'
-        }).then(function(modal) {
+        }).then(function (modal) {
           $scope.modal = modal;
           modal.show();
         });
       } else {
         $scope.modal.show();
       }
-
-      //$scope.modal.show();
     };
 
-    $scope.closeModal = function() {
+    $scope.closeModal = function () {
       $scope.modal.hide();
       //$scope.modal.remove();
     };
 
-    $scope.$on('modal.shown', function() {
+    $scope.$on('modal.shown', function () {
       console.log('modal.shown');
     });
 
-    $scope.$on('modal.hidden', function() {
+    $scope.$on('modal.hidden', function () {
       console.log('modal.hidden');
     });
 
-    $scope.setData = function(front, back) {
+    $scope.setData = function (front, back) {
       console.log('saveModal', front, back);
 
-      $scope.$emit('onChange', {index:$scope.currentIndex, front:front, back:back});
+      $scope.$emit('onChange', {index: $scope.currentIndex, front: front, back: back});
       $scope.modal.hide();
     };
   });
 
-  app.controller('CardpackCreateModalCtrl', function ($scope, $ionicPopover, $ionicModal) {
+  app.controller('CardpackCreateModalCtrl', function ($scope, $ionicPlatform) {
     console.log('CardpackCreateModalCtrl');
 
     $scope.tinymceOptions = {
