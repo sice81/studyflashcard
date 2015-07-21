@@ -1,15 +1,3 @@
-//var CDN_URL = 'http://dtgctofxa00xb.cloudfront.net/';
-//var CDN_VERSION = '20150720_2037';
-//var API_URL = 'http://localhost:8080/';
-
-var CDN_URL = '';
-var CDN_VERSION = '';
-var API_URL = 'http://localhost:8080/';
-
-//<script src='/bower_components/textAngular/dist/textAngular-rangy.min.js'></script>
-//  <script src='/bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
-//  <script src='/bower_components/textAngular/dist/textAngular.min.js'></script>
-
 /*jshint unused: vars */
 require.config({
   baseUrl: CDN_URL + 'scripts',
