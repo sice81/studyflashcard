@@ -11,6 +11,7 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
 
       .state('cardpack-create', {
         url: '/cardpacks/new',
+        cache: false,
         templateUrl: CDN_URL + 'templates/cardpack-create.html' + '?v=' + CDN_VERSION,
         controller: 'CardpackCreateCtrl'
       })

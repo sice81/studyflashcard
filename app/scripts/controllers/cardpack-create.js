@@ -89,6 +89,10 @@ define(['angular', 'app'], function (angular, app) {
       console.log('modal.hidden');
     });
 
+    $scope.$on('$destroy', function () {
+      console.log('$destroy');
+    });
+
     $scope.setData = function (front, back) {
       console.log('saveModal', front, back);
 
