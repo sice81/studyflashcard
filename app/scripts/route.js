@@ -53,6 +53,7 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
       })
 
       .state('memorizeplayer', {
+        cache: false,
         url: '/memorizeplayer/:cardPackId',
         templateUrl: CDN_URL + 'templates/memorizeplayer.html' + '?v=' + CDN_VERSION,
         controller: 'MemorizePlayerCtrl'
