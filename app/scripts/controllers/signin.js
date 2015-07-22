@@ -1,7 +1,7 @@
 define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
   'use strict';
 
-  app.controller('SigninCtrl', function ($scope, $state, $http, $window, $httpParamSerializerJQLike, SessionService) {
+  app.controller('SigninCtrl', function ($scope, $state, $http, $window, $httpParamSerializerJQLike, SessionService, $ionicLoading) {
     console.log('SigninCtrl');
 
     function req(accessToken, userId) {
@@ -38,6 +38,10 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
       FB.getLoginStatus(function (response) {
         console.log('FB.getLoginStatus', response);
 
+        $ionicLoading.show({
+          template: '인증 중 입니다.'
+        });
+
         var status = response.status;
         var auth = response.authResponse;
 
@@ -45,6 +49,8 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
           if (status === 'connected') {
             req(auth.accessToken, auth.userID)
               .success(function (response) {
+                $ionicLoading.hide();
+
                 if (response.result) {
                   SessionService.isAnonymus = false;
                   SessionService.saveUserId(response.userId);
