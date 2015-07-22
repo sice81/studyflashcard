@@ -47,7 +47,7 @@ define(['angular', 'angular-tinymce'], function (angular) {
     };
   });
 
-  module.factory('sessionInjector', ['SessionService', function (SessionService) {
+  module.factory('sessionInjector', function (SessionService, $q) {
     var sessionInjector = {
       request: function (config) {
         //console.log('request', config, SessionService);
@@ -56,10 +56,25 @@ define(['angular', 'angular-tinymce'], function (angular) {
           config.headers['x-session-token'] = SessionService.loadToken();
         }
         return config;
+      },
+      response: function(response) {
+        //console.log(response);
+        return response;
+      },
+      // optional method
+      'responseError': function(rejection) {
+        console.log('responseError', rejection);
+
+        if (rejection.status == 401) {
+          //$state.go('signin');
+          location.href = '#/signin';
+        }
+
+        return $q.reject(rejection);
       }
     };
     return sessionInjector;
-  }]);
+  });
 
   module.config(['$httpProvider', function ($httpProvider) {
     console.log('config.$httpProvider');
