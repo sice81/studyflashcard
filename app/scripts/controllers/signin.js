@@ -49,14 +49,15 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
           if (status === 'connected') {
             req(auth.accessToken, auth.userID)
               .success(function (response) {
-                $ionicLoading.hide();
-
                 if (response.result) {
                   SessionService.isAnonymus = false;
                   SessionService.saveUserId(response.userId);
                   SessionService.saveToken(response.accessToken);
                   $state.go('tab.dashboard');
                 }
+              })
+              .finally(function(){
+                $ionicLoading.hide();
               });
           } else {
             goLogin();
