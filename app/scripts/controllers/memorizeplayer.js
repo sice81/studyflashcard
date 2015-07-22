@@ -58,8 +58,14 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
       $scope.swiper.slideTo($scope.range.progress);
     });
 
+    $ionicLoading.show({
+      template: '카드정보를 로딩 중입니다.'
+    });
+
     Cardpacks.get($stateParams.cardPackId)
       .success(function (response) {
+        $ionicLoading.hide();
+
         var cardpack = response;
         angular.copy(cardpack.cards, $scope.cards);
         $scope.range.max = cardpack.cards.length - 1;
