@@ -28,7 +28,7 @@ define(['angular', 'angular-tinymce'], function (angular) {
     };
   });
 
-  module.factory('sessionInjector', function (SessionService, $q) {
+  module.factory('sessionInjector', function (SessionService, $q, $rootScope) {
     var sessionInjector = {
       request: function (config) {
         if (!SessionService.isAnonymus) {
