@@ -61,6 +61,6 @@ define(['angular', 'app', 'services', 'signin-ctrl', 'dashboard-ctrl', 'store-ct
     ;
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/signin');
+    $urlRouterProvider.otherwise('/tab/dashboard');
   });
 });
