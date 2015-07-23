@@ -1,7 +1,7 @@
 define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
   'use strict';
 
-  app.controller('SigninCtrl', function ($scope, $state, $http, $window, $httpParamSerializerJQLike, SessionService, $ionicLoading) {
+  app.controller('SigninCtrl', function ($rootScope, $scope, $state, $http, $window, $httpParamSerializerJQLike, SessionService, $ionicLoading) {
     console.log('SigninCtrl');
 
     function req(accessToken, userId) {
@@ -53,8 +53,13 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
                   SessionService.isAnonymus = false;
                   SessionService.saveUserId(response.userId);
                   SessionService.saveToken(response.accessToken);
-                  $state.go('tab.dashboard');
+                  //$state.go('tab.dashboard');
+                  //$rootScope.$broadcast('login:hide');
+                  $window.location.reload(true);
                 }
+              })
+              .error(function(){
+                $ionicLoading.show();
               })
               .finally(function(){
                 $ionicLoading.hide();
