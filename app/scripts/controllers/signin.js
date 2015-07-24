@@ -1,7 +1,7 @@
 define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
   'use strict';
 
-  app.controller('SigninCtrl', function ($rootScope, $scope, $state, $http, $window, $httpParamSerializerJQLike, SessionService, $ionicLoading) {
+  app.controller('SigninCtrl', function ($rootScope, $scope, $state, $http, $window, $httpParamSerializerJQLike, SessionService, $ionicLoading, $timeout, Toast) {
     console.log('SigninCtrl');
 
     function req(accessToken, userId) {
@@ -35,6 +35,11 @@ define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
     }
 
     $scope.signInFacebook = function () {
+      if (window.FB === undefined) {
+        Toast.show('페이스북 개체가 초기화되지 않았습니다. 통신에 이상이 없는지 살펴보시기 바랍니다.', 1000);
+        return;
+      }
+
       FB.getLoginStatus(function (response) {
         console.log('FB.getLoginStatus', response);
 

@@ -95,5 +95,19 @@ define(['angular', 'angular-tinymce'], function (angular) {
     });
   });
 
+  module.factory('Toast', function ($ionicLoading, $timeout) {
+    return {
+      show: function(msg, timeout) {
+        $ionicLoading.show({
+          template: msg
+        });
+
+        $timeout(function(){
+          $ionicLoading.hide();
+        }, timeout || 3000);
+      }
+    };
+  });
+
   return module;
 });
