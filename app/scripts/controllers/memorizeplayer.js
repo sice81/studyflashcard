@@ -63,7 +63,9 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     });
 
     Cardpacks.get($stateParams.cardPackId)
-      .success(function (response) {
+      .then(function (response) {
+        $ionicLoading.hide();
+
         var cardpack = response;
         angular.copy(cardpack.cards, $scope.cards);
         $scope.range.max = cardpack.cards.length - 1;
@@ -74,8 +76,7 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
           card.isRight = false;
           card.type = TYPE.FRONT;
         }
-      })
-      .finally(function(){
+      }, function () {
         $ionicLoading.hide();
       });
 
