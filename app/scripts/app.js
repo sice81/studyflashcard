@@ -42,8 +42,18 @@ define(['angular', 'angular-tinymce'], function (angular) {
       responseError: function(rejection) {
         console.log('responseError', rejection);
 
-        if (rejection.status == 401) {
-          $rootScope.$broadcast('login:show');
+        switch (rejection.status) {
+          case 0:
+            $rootScope.$broadcast('showMessage', '서버가 응답하지 않습니다.');
+            break;
+
+          case 401:
+            $rootScope.$broadcast('login:show');
+                break;
+
+          default:
+            $rootScope.$broadcast('showMessage', 'Error status = ' + rejection.status);
+                break;
         }
 
         return $q.reject(rejection);
@@ -57,7 +67,7 @@ define(['angular', 'angular-tinymce'], function (angular) {
     $httpProvider.interceptors.push('sessionInjector');
   }]);
 
-  module.run(function ($ionicPlatform, $rootScope, $ionicModal) {
+  module.run(function ($ionicPlatform, $rootScope, $ionicModal, Toast) {
     $rootScope.config = {};
     $rootScope.config.CDN_URL = CDN_URL;
     $rootScope.config.CDN_VERSION = CDN_VERSION;
@@ -80,6 +90,10 @@ define(['angular', 'angular-tinymce'], function (angular) {
 
     $rootScope.$on('login:hide', function() {
       $rootScope.loginModal.hide();
+    });
+
+    $rootScope.$on('showMessage', function(event, msg){
+      Toast.show(msg, 3000);
     });
 
     $ionicPlatform.ready(function () {
