@@ -67,7 +67,7 @@ define(['angular', 'app'], function (angular, app) {
     };
 
     $scope.setData = function (front, back) {
-      console.log('saveModal', front, back);
+      console.log('setData', front, back);
 
       if ($scope.currentIndex >= 0) {
         $scope.items[$scope.modalData.index].front = front;
@@ -80,6 +80,28 @@ define(['angular', 'app'], function (angular, app) {
       }
 
       $scope.modal.hide();
+      $scope.saveState();
+    };
+
+    $scope.loadState = function() {
+      var json = localStorage.getItem('cardpack-create-data-items');
+
+      if (json) {
+        var items = JSON.parse(json);
+        $scope.items = items;
+        $scope.data.name = localStorage.getItem('cardpack-create-data-cardpackName');
+      }
+    };
+
+    $scope.saveState = function() {
+      var json = JSON.stringify($scope.items);
+      localStorage.setItem('cardpack-create-data-items', json);
+      localStorage.setItem('cardpack-create-data-cardpackName', $scope.data.name);
+    };
+
+    $scope.clearState = function() {
+      localStorage.setItem('cardpack-create-data-items', null);
+      localStorage.setItem('cardpack-create-data-cardpackName', null);
     };
 
     $scope.closeModal = function () {
@@ -148,6 +170,7 @@ define(['angular', 'app'], function (angular, app) {
         }
       }).success(function () {
         alert('send success');
+        $scope.clearState();
       });
     };
 
@@ -162,6 +185,8 @@ define(['angular', 'app'], function (angular, app) {
     $scope.$on('$destroy', function () {
       console.log('$destroy');
     });
+
+    $scope.loadState();
   });
 
   app.controller('CardpackCreateModalCtrl', function ($scope, $ionicPlatform) {
