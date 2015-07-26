@@ -1,4 +1,4 @@
-define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app) {
+define(['angular', 'app', 'swiper', 'cardpacks-service', 'studystatus-service'], function (angular, app) {
   'use strict';
 
   app.directive('onFinishRender', function ($timeout) {
@@ -12,7 +12,7 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
     }
   });
 
-  app.controller('MemorizePlayerCtrl', function ($scope, $stateParams, Cardpacks, $timeout, $ionicLoading) {
+  app.controller('MemorizePlayerCtrl', function ($scope, $stateParams, Cardpacks, $timeout, $ionicLoading, StudyStatus, Toast) {
     console.log('MemorizePlayerCtrl');
 
     var TYPE = {
@@ -30,6 +30,20 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
         this.$apply(fn);
       }
     };
+
+    $scope.$on('$destroy', function () {
+      var wrongs = $scope.wrongArr;
+      var rights = $scope.rightArr;
+      var current = $scope.cards[$scope.range.progress].id;
+
+      StudyStatus.save($stateParams.cardPackId, {
+        wrongs: wrongs,
+        rights: rights,
+        current: current
+      }).success(function () {
+        Toast.show('학습진도가 저장되었습니다.', 1000);
+      });
+    });
 
     $scope.$on('onFinishRender', function (event) {
       console.log('onFinishRender');
@@ -76,6 +90,46 @@ define(['angular', 'app', 'swiper', 'cardpacks-service'], function (angular, app
           card.isRight = false;
           card.type = TYPE.FRONT;
         }
+
+        StudyStatus.get($stateParams.cardPackId)
+          .success(function (response) {
+            if (!response) {
+              return;
+            }
+
+            var wrongs = response.wrongs;
+            var rights = response.rights;
+            var current = response.current;
+
+            $scope.rightArr = rights;
+            $scope.wrongArr = wrongs;
+
+            var mapRight = {};
+            var mapWrong = {};
+
+            for (var i in rights) {
+              mapRight[rights[i]] = true;
+            }
+            for (var i in wrongs) {
+              mapWrong[wrongs[i]] = true;
+            }
+
+            for (var i in $scope.cards) {
+              var card = $scope.cards[i];
+
+              if (mapWrong[card.id]) {
+                card.isWrong = true;
+              } else {
+                card.isWrong = false;
+              }
+
+              if (mapRight[card.id]) {
+                card.isRight = true;
+              } else {
+                card.isRight = false;
+              }
+            }
+          });
       }, function () {
         $ionicLoading.hide();
       });

@@ -30,7 +30,8 @@ require.config({
     'services': './services',
     'myfavorite-service': './services/myfavorite',
     'oauth-facebook': 'oauth-facebook',
-    'cardpacks-service': './services/cardpacks'
+    'cardpacks-service': './services/cardpacks',
+    'studystatus-service': './services/studystatus'
   },
   shim: {
     'angular': {'exports': 'angular'},
