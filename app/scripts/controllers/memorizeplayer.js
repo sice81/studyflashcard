@@ -101,6 +101,17 @@ define(['angular', 'app', 'swiper', 'cardpacks-service', 'studystatus-service'],
             var rights = response.rights;
             var current = response.current;
 
+            if (current) {
+              for (var i = 0; i < $scope.cards.length; i++) {
+                var card = $scope.cards[i];
+
+                if (card.id == current) {
+                  $scope.range.progress = i;
+                  break;
+                }
+              }
+            }
+
             $scope.rightArr = rights;
             $scope.wrongArr = wrongs;
 
