@@ -21,7 +21,7 @@ define(['angular', 'app'], function (angular, app) {
         var deferred = $q.defer();
 
         $http({
-          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks/' + id,
+          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks/' + id + '/doc',
           method: "GET",
           headers: {
             'Content-Type': 'application/json; charset=utf-8'
