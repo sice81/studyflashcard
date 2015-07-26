@@ -1,7 +1,7 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $location, $state, $ionicPopover, $ionicModal, $http, SessionService) {
+  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $location, $state, $ionicPopover, $ionicModal, $http, SessionService, $ionicPopup) {
     console.log('CardpackCreateCtrl');
     //$scope.shouldShowDelete = true;
     //$scope.shouldShowReorder = true;
@@ -83,25 +83,33 @@ define(['angular', 'app'], function (angular, app) {
       $scope.saveState();
     };
 
-    $scope.loadState = function() {
-      var json = localStorage.getItem('cardpack-create-data-items');
+    $scope.isSavedData = function () {
+      var jsonItems = localStorage.getItem('cardpack-create-data');
+
+      if (jsonItems) {
+        return true;
+      }
+
+      return false;
+    };
+
+    $scope.loadState = function () {
+      var json = localStorage.getItem('cardpack-create-data');
 
       if (json) {
-        var items = JSON.parse(json);
-        $scope.items = items;
-        $scope.data.name = localStorage.getItem('cardpack-create-data-cardpackName');
+        var obj = JSON.parse(json);
+        $scope.items = obj.items;
+        $scope.data.name = obj.cardpackName;
       }
     };
 
-    $scope.saveState = function() {
-      var json = JSON.stringify($scope.items);
-      localStorage.setItem('cardpack-create-data-items', json);
-      localStorage.setItem('cardpack-create-data-cardpackName', $scope.data.name);
+    $scope.saveState = function () {
+      var json = JSON.stringify({cardpackName: $scope.data.name, items: $scope.items});
+      localStorage.setItem('cardpack-create-data', json);
     };
 
-    $scope.clearState = function() {
-      localStorage.setItem('cardpack-create-data-items', null);
-      localStorage.setItem('cardpack-create-data-cardpackName', null);
+    $scope.clearState = function () {
+      localStorage.setItem('cardpack-create-data', null);
     };
 
     $scope.closeModal = function () {
@@ -186,7 +194,18 @@ define(['angular', 'app'], function (angular, app) {
       console.log('$destroy');
     });
 
-    $scope.loadState();
+    if ($scope.isSavedData()) {
+      // 다이얼로그로 물어본 후 로드
+      var confirmPopup = $ionicPopup.confirm({
+        title: '확인',
+        template: '작업 중인 카드팩이 있습니다. 불러오시겠습니까?'
+      });
+      confirmPopup.then(function (res) {
+        if (res) {
+          $scope.loadState();
+        }
+      });
+    }
   });
 
   app.controller('CardpackCreateModalCtrl', function ($scope, $ionicPlatform) {
