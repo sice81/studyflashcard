@@ -109,7 +109,7 @@ define(['angular', 'app'], function (angular, app) {
     };
 
     $scope.clearState = function () {
-      localStorage.setItem('cardpack-create-data', null);
+      localStorage.removeItem('cardpack-create-data');
     };
 
     $scope.closeModal = function () {
