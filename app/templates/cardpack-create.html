@@ -1,6 +1,6 @@
 <ion-view view-title="카드팩 만들기">
   <ion-nav-buttons side="primary">
-    <button ng-click="sendData()" ng-hide="shouldShowDelete" class="button button-clear pull-right">저장</button>
+    <button ng-click="sendData()" ng-hide="shouldShowDelete" ng-disabled="items.length <= 0 || data.name.length <= 0" class="button button-clear pull-right">저장</button>
     <button ng-click="openModal(-1, {})" ng-hide="shouldShowDelete" class="button button-clear pull-right">추가
     </button>
     <button ng-click="toggleDelete()" ng-show="shouldShowDelete" class="button button-clear pull-right">취소</button>
