@@ -23,25 +23,14 @@ define(['angular', 'app'], function (angular, app) {
 
     $scope.isEditMode = false;
     $scope.cards = ['card1'];
-    $scope.front = 'front';
-    $scope.back = 'back';
     $scope.currentIndex = -1;
     $scope.isReady = true;
 
     $scope.$on('onChange', function (event, args) {
       console.log('onChange', event, args);
-      $scope.items[args.index].title = args.front;
-      $scope.items[args.index].description = args.back;
+      $scope.items[args.index].front = args.front;
+      $scope.items[args.index].back = args.back;
     });
-
-    $scope.goEditor = function (index, item) {
-      console.log('goEditor', index, item);
-      $state.go('cardpack-card-editor', {
-        'index': index,
-        'front': item.title,
-        'back': item.description
-      });
-    };
 
     $scope.openModal = function (index, item) {
       console.log('openModal', $scope.modal);
@@ -75,6 +64,22 @@ define(['angular', 'app'], function (angular, app) {
       } else {
         $scope.modal.show();
       }
+    };
+
+    $scope.setData = function (front, back) {
+      console.log('saveModal', front, back);
+
+      if ($scope.currentIndex >= 0) {
+        $scope.items[$scope.modalData.index].front = front;
+        $scope.items[$scope.modalData.index].back = back;
+      } else {
+        $scope.items.push({
+          front: front,
+          back: back
+        });
+      }
+
+      $scope.modal.hide();
     };
 
     $scope.closeModal = function () {
@@ -119,8 +124,8 @@ define(['angular', 'app'], function (angular, app) {
         var item = items[i];
         cards.push({
           id: S4() + S4() + S4() + S4(),
-          front: item.title,
-          back: item.description
+          front: item.front,
+          back: item.back
         });
       }
 
@@ -157,22 +162,6 @@ define(['angular', 'app'], function (angular, app) {
     $scope.$on('$destroy', function () {
       console.log('$destroy');
     });
-
-    $scope.setData = function (front, back) {
-      console.log('saveModal', front, back);
-
-      if ($scope.currentIndex >= 0) {
-        $scope.items[$scope.modalData.index].title = front;
-        $scope.items[$scope.modalData.index].description = back;
-      } else {
-        $scope.items.push({
-          title: front,
-          description: back
-        });
-      }
-
-      $scope.modal.hide();
-    };
   });
 
   app.controller('CardpackCreateModalCtrl', function ($scope, $ionicPlatform) {
