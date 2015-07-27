@@ -39,7 +39,8 @@ define(['angular', 'app'], function (angular, app) {
       StudyStatus.save($stateParams.cardPackId, {
         wrongs: wrongs,
         rights: rights,
-        current: current
+        current: current,
+        studyActLog: $scope.studyActLog
       }).success(function () {
         Toast.show('학습진도가 저장되었습니다.', 1000);
       });
@@ -156,6 +157,11 @@ define(['angular', 'app'], function (angular, app) {
     $scope.isShowResult = false;
     $scope.wrongArr = [];
     $scope.rightArr = [];
+    $scope.studyActLog = {
+      wrongCnt: 0,
+      rightCnt: 0,
+      cardViewCnt: 0
+    };
 
     $scope.addRight = function () {
       var card = $scope.cards[$scope.range.progress];
@@ -174,6 +180,7 @@ define(['angular', 'app'], function (angular, app) {
         $scope.wrongArr.splice(wrongId, 1);
       }
 
+      $scope.studyActLog.rightCnt++;
       $scope.swiper.slideNext();
     };
 
@@ -194,6 +201,7 @@ define(['angular', 'app'], function (angular, app) {
         $scope.rightArr.splice(rightId, 1);
       }
 
+      $scope.studyActLog.wrongCnt++;
       $scope.swiper.slideNext();
     };
 
@@ -221,6 +229,7 @@ define(['angular', 'app'], function (angular, app) {
       if (card.type == TYPE.FRONT) {
         card.type = TYPE.BACK;
         $scope.isShowResult = true;
+        $scope.studyActLog.cardViewCnt++;
       } else {
         card.type = TYPE.FRONT;
         $scope.isShowResult = false;
