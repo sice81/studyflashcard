@@ -1,4 +1,4 @@
-define(['angular', 'angular-tinymce'], function (angular) {
+define(['angular'], function (angular) {
   'use strict';
 
   var module = angular.module('studyflashcardApp', ['ionic', 'ui.tinymce', 'chart.js', 'studyflashcardApp.controllers', 'studyflashcardApp.services']);

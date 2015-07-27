@@ -1,4 +1,4 @@
-define(['angular', 'app', 'angular-chart', 'myfavorite-service'], function (angular, app) {
+define(['angular', 'app'], function (angular, app) {
   'use strict';
 
   app.controller('DashboardMainCtrl', function ($scope, Myfavorite) {

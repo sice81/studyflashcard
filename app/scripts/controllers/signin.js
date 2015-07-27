@@ -1,4 +1,4 @@
-define(['angular', 'app', 'oauth-facebook'], function (angular, app) {
+define(['angular', 'app'], function (angular, app) {
   'use strict';
 
   app.controller('SigninCtrl', function ($rootScope, $scope, $state, $http, $window, $httpParamSerializerJQLike, SessionService, $ionicLoading, $timeout, Toast) {

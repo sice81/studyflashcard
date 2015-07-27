@@ -74,7 +74,21 @@ require([
   'angular-ui-router',
   //'angular-chart',
   'ionic',
-  'ionic-angular'
+  'ionic-angular',
+  'angular-tinymce',
+  'services',
+  'signin-ctrl',
+  'dashboard-ctrl',
+  'store-ctrl',
+  'settings-ctrl',
+  'memorizeplayer-ctrl',
+  'cardpack-create-ctrl',
+  'angular-chart',
+  'myfavorite-service',
+  'swiper',
+  'cardpacks-service',
+  'studystatus-service',
+  'oauth-facebook'
 ], function (angular, app) {
   'use strict';
   /* jshint ignore:start */
