@@ -28,11 +28,11 @@ define(['angular', 'app'], function (angular, app) {
     $scope.listCanSwipe = true
   });
 
-  app.controller('Dashboard.MyListCtrl', function ($scope, Cardpacks) {
+  app.controller('Dashboard.MyListCtrl', function ($scope, Cardpacks, SessionService) {
     console.log('Dashboard.MyListCtrl');
     $scope.cardpacks = [];
 
-    Cardpacks.all().success(function(response){
+    Cardpacks.allByUserId(SessionService.loadUserId()).success(function(response){
       $scope.cardpacks = response;
     });
   });

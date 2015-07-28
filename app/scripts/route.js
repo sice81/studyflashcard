@@ -16,6 +16,13 @@ define(['angular', 'app'], function (angular, app) {
         controller: 'CardpackCreateCtrl'
       })
 
+      .state('cardpack-main', {
+        url: '/cardpacks/:cardpackId',
+        cache: false,
+        templateUrl: CDN_URL + 'templates/cardpack-main.html' + '?v=' + CDN_VERSION,
+        controller: 'CardpackMainCtrl'
+      })
+
       .state('tab', {
         url: '/tab',
         abstract: true,
@@ -54,7 +61,7 @@ define(['angular', 'app'], function (angular, app) {
 
       .state('memorizeplayer', {
         cache: false,
-        url: '/memorizeplayer/:cardPackId',
+        url: '/memorizeplayer/:cardpackId',
         templateUrl: CDN_URL + 'templates/memorizeplayer.html' + '?v=' + CDN_VERSION,
         controller: 'MemorizePlayerCtrl'
       })

@@ -5,23 +5,31 @@ define(['angular', 'app'], function (angular, app) {
     console.log('Cardpacks');
 
     return {
-      all: function () {
+      allByUserId: function (userId) {
         return $http({
-          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks',
+          url: API_URL + 'api/app/v1/users/' + userId + '/cardpacks',
           method: "GET",
           headers: {
             'Content-Type': 'application/json; charset=utf-8'
           }
         });
       },
-      //remove: function (chat) {
-      //  myfavorite.splice(myfavorite.indexOf(chat), 1);
-      //},
-      get: function (id) {
+
+      get: function (cardpackId) {
+        return $http({
+          url: API_URL + 'api/app/v1/cardpacks/' + cardpackId,
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        });
+      },
+
+      getDoc: function (cardpackId) {
         var deferred = $q.defer();
 
         $http({
-          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks/' + id + '/doc',
+          url: API_URL + 'api/app/v1/cardpacks/' + cardpackId + '/doc',
           method: "GET",
           headers: {
             'Content-Type': 'application/json; charset=utf-8'

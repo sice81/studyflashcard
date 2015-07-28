@@ -36,7 +36,7 @@ define(['angular', 'app'], function (angular, app) {
       var rights = $scope.rightArr;
       var current = $scope.cards[$scope.range.progress].id;
 
-      StudyStatus.save($stateParams.cardPackId, {
+      StudyStatus.save($stateParams.cardpackId, {
         wrongs: wrongs,
         rights: rights,
         current: current,
@@ -77,7 +77,7 @@ define(['angular', 'app'], function (angular, app) {
       template: '카드정보를 로딩 중입니다.'
     });
 
-    Cardpacks.get($stateParams.cardPackId)
+    Cardpacks.getDoc($stateParams.cardpackId)
       .then(function (response) {
         $ionicLoading.hide();
 
@@ -92,7 +92,7 @@ define(['angular', 'app'], function (angular, app) {
           card.type = TYPE.FRONT;
         }
 
-        StudyStatus.get($stateParams.cardPackId)
+        StudyStatus.get($stateParams.cardpackId)
           .success(function (response) {
             if (!response) {
               return;

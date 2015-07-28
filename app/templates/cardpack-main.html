@@ -1,0 +1,58 @@
+<ion-view view-title="카드팩 메인">
+  <ion-nav-buttons side="primary">
+    <button ng-click="goModify()" class="button button-clear pull-right">수정</button>
+    <button ng-click="deleteCardpack()" class="button button-clear pull-right">삭제</button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <div class="row">
+      <div class="col">
+        <h3>{{data.cardpackName}}</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-67">
+        <p>
+          카드개수 {{data.cardCnt}}개 <br/>
+          학습중인 유저수 : {{data.inStudyUserCnt}} <br/>
+          학습완료한 유저수 : {{data.completeStudyUserCnt}}
+        </p>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <button class="button button-small button-balanced">즐겨찾기</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button class="button button-small button-positive">사본생성</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button ng-click="goMemorizePlayer()" class="button button-block button-positive">학습 시작하기</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button class="button button-block button-assertive">학습 종료하기</button>
+      </div>
+    </div>
+
+    <br/><br/>
+    카드팩명 : {{data.cardpackName}} <br/>
+    유저ID : {{data.ownerUserId}} <br/>
+    카드개수 : {{data.cardCnt}} <br/>
+
+    학습중인 유저수 : {{data.inStudyUserCnt}} <br/>
+    학습완료한 유저수 : {{data.completeStudyUserCnt}} <br/>
+    공개코드 : {{data.accessCd}}
+
+  </ion-content>
+</ion-view>
