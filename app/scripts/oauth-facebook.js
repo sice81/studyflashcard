@@ -4,25 +4,20 @@ define(['angular'], function (angular) {
   // Facebbok OAuth init
   window.fbAsyncInit = function () {
     FB.init({
-      appId: FACEBOOK_APP_ID, // Replace the App ID with yours
-      status: true, // check login status
-      cookie: true, // enable cookies to allow the server to access the session
-      xfbml: true  // parse XFBML
+      appId      : FACEBOOK_APP_ID, // Replace the App ID with yours
+      xfbml      : true,
+      version    : 'v2.4'
     });
   };
 
   // Load the SDK asynchronously
-  (function (d) {
-    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) {
-      return;
-    }
-    js = d.createElement('script');
-    js.id = id;
-    js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    ref.parentNode.insertBefore(js, ref);
-  }(document));
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
   // Facebbok OAuth init - END
 
 //  // Google OAuth Init

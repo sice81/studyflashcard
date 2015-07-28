@@ -24,14 +24,28 @@ define(['angular', 'app'], function (angular, app) {
 
         if (auth) {
           if (status === 'connected') {
-            req(auth.accessToken, auth.userID);
+            req(auth.accessToken, auth.userID)
+              .success(function (response) {
+                if (response.result) {
+                  SessionService.isAnonymus = false;
+                  SessionService.saveUserId(response.userId);
+                  SessionService.saveToken(response.accessToken);
+                  $window.location.reload(true);
+                }
+              })
+              .error(function(){
+                $ionicLoading.show();
+              })
+              .finally(function(){
+                $ionicLoading.hide();
+              });
           } else {
             console.log('status=' + status);
           }
         } else {
           console.log('User cancelled login or did not fully authorize.');
         }
-      }, {scope: 'email,user_photos,user_videos'});
+      }, {scope: 'public_profile,email'});
     }
 
     $scope.signInFacebook = function () {
@@ -58,8 +72,6 @@ define(['angular', 'app'], function (angular, app) {
                   SessionService.isAnonymus = false;
                   SessionService.saveUserId(response.userId);
                   SessionService.saveToken(response.accessToken);
-                  //$state.go('tab.dashboard');
-                  //$rootScope.$broadcast('login:hide');
                   $window.location.reload(true);
                 }
               })
@@ -81,8 +93,11 @@ define(['angular', 'app'], function (angular, app) {
         // get basic info
         FB.api('/me', function (response) {
           console.log('Facebook Login RESPONSE: ' + angular.toJson(response));
+
           // get profile picture
           FB.api('/me/picture?type=normal', function (picResponse) {
+            console.log(picResponse);
+
             console.log('Facebook Login RESPONSE: ' + picResponse.data.url);
             response.imageUrl = picResponse.data.url;
             // store data to DB - Call to API
