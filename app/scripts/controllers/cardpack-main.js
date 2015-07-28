@@ -1,7 +1,7 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackMainCtrl', function ($scope, $state, $stateParams, Cardpacks) {
+  app.controller('CardpackMainCtrl', function ($scope, $state, $stateParams, Cardpacks, $ionicLoading) {
     console.log('CardpackMainCtrl', $stateParams);
 
     $scope.data = {};
@@ -20,10 +20,14 @@ define(['angular', 'app'], function (angular, app) {
       $state.go('cardpack-edit', {cardpackId: $stateParams.cardpackId});
     };
 
+    $ionicLoading.show();
     Cardpacks.get($stateParams.cardpackId)
       .success(function(response){
         console.log(response);
         $scope.data = response;
+      })
+      .finally(function(){
+        $ionicLoading.hide();
       });
   });
 });
