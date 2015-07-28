@@ -16,6 +16,10 @@ define(['angular', 'app'], function (angular, app) {
       $state.go('memorizeplayer', {cardpackId: $stateParams.cardpackId});
     };
 
+    $scope.goModify = function() {
+      $state.go('cardpack-edit', {cardpackId: $stateParams.cardpackId});
+    };
+
     Cardpacks.get($stateParams.cardpackId)
       .success(function(response){
         console.log(response);

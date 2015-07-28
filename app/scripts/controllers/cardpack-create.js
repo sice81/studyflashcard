@@ -1,14 +1,30 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $location, $state, $ionicPopover, $ionicModal, $http, SessionService, $ionicPopup) {
-    console.log('CardpackCreateCtrl');
+  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $location, $state, $stateParams, $ionicLoading, $ionicPopover, $ionicModal, $http, SessionService, $ionicPopup, Cardpacks) {
+    console.log('CardpackCreateCtrl', $stateParams);
     //$scope.shouldShowDelete = true;
     //$scope.shouldShowReorder = true;
+
+    // 카드팩ID가 넘어온 경우 edit 모드
+    if ($stateParams.cardpackId) {
+      $ionicLoading.show();
+      Cardpacks.getDoc($stateParams.cardpackId)
+        .then(function(response){
+          $ionicLoading.hide();
+          console.log(response);
+          $scope.data.name = response.cardpackName;
+          $scope.items = response.cards;
+        }, function(){
+          $ionicLoading.hide();
+          console.log('fail');
+        });
+    }
+
+    $scope.cardpackId = $stateParams.cardpackId;
     $scope.listCanSwipe = true;
     $scope.items = [];
-    $scope.cardpackName = 'test';
-
+    $scope.cardpackName = '';
     $scope.tinymceOptions = {
       onChange: function (e) {
         // put logic here for keypress and cut/paste changes
@@ -21,7 +37,7 @@ define(['angular', 'app'], function (angular, app) {
 
     $scope.data = {};
 
-    $scope.isEditMode = false;
+    //$scope.isEditMode = false;
     $scope.cards = ['card1'];
     $scope.currentIndex = -1;
     $scope.isReady = true;
@@ -169,17 +185,32 @@ define(['angular', 'app'], function (angular, app) {
         docData: angular.toJson(doc)
       };
 
-      $http({
-        url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks',
-        method: "POST",
-        data: cardpackParam,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8'
-        }
-      }).success(function () {
-        alert('send success');
-        $scope.clearState();
-      });
+      // TODO Cardpacks로 대체할 것
+      if ($stateParams.cardpackId) {
+        $http({
+          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks/' + $stateParams.cardpackId,
+          method: "PUT",
+          data: cardpackParam,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        }).success(function () {
+          alert('send success');
+          $scope.clearState();
+        });
+      } else {
+        $http({
+          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks',
+          method: "POST",
+          data: cardpackParam,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        }).success(function () {
+          alert('send success');
+          $scope.clearState();
+        });
+      }
     };
 
     $scope.$on('modal.shown', function () {

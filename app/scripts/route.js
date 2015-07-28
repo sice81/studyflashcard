@@ -16,6 +16,13 @@ define(['angular', 'app'], function (angular, app) {
         controller: 'CardpackCreateCtrl'
       })
 
+      .state('cardpack-edit', {
+        url: '/cardpacks/edit/:cardpackId',
+        cache: false,
+        templateUrl: CDN_URL + 'templates/cardpack-create.html' + '?v=' + CDN_VERSION,
+        controller: 'CardpackCreateCtrl'
+      })
+
       .state('cardpack-main', {
         url: '/cardpacks/:cardpackId',
         cache: false,
