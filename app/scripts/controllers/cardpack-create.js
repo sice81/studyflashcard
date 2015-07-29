@@ -169,7 +169,7 @@ define(['angular', 'app'], function (angular, app) {
       for (var i in items) {
         var item = items[i];
         cards.push({
-          id: S4() + S4() + S4() + S4(),
+          id: item.id ? item.id : S4() + S4() + S4() + S4(),
           front: item.front,
           back: item.back
         });
