@@ -32,7 +32,8 @@ require.config({
     'myfavorite-service': './services/myfavorite',
     'oauth-facebook': 'oauth-facebook',
     'cardpacks-service': './services/cardpacks',
-    'studystatus-service': './services/studystatus'
+    'studystatus-service': './services/studystatus',
+    'studyact-statistics-service': './services/studyact-statistics'
   },
   shim: {
     'angular': {'exports': 'angular'},
@@ -90,6 +91,7 @@ require([
   'swiper',
   'cardpacks-service',
   'studystatus-service',
+  'studyact-statistics-service',
   'oauth-facebook'
 ], function (angular, app) {
   'use strict';

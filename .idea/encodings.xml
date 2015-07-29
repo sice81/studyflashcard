@@ -18,6 +18,7 @@
     <file url="file://$PROJECT_DIR$/app/scripts/services/cardpacks-mock.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/cardpacks.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/myfavorite.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/services/studyact-statistics.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/studystatus.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/templates/cardpack-create.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/templates/cardpack-main.html" charset="UTF-8" />
