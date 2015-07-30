@@ -1,10 +1,11 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackMainCtrl', function ($scope, $state, $stateParams, Cardpacks, $ionicLoading) {
+  app.controller('CardpackMainCtrl', function ($scope, $state, $stateParams, Cardpacks, $ionicLoading, SessionService) {
     console.log('CardpackMainCtrl', $stateParams);
 
     $scope.data = {};
+    $scope.data.isMine = false;
     $scope.data.cardpackName = '카드팩명';
     $scope.data.ownerUserId = 'fb-1818';
     $scope.data.cardCnt = 100;
@@ -12,21 +13,27 @@ define(['angular', 'app'], function (angular, app) {
     $scope.data.completeStudyUserCnt = 5;
     $scope.data.accessCd = 'PUBLIC';
 
-    $scope.goMemorizePlayer = function() {
+    $scope.goMemorizePlayer = function () {
       $state.go('memorizeplayer', {cardpackId: $stateParams.cardpackId});
     };
 
-    $scope.goModify = function() {
+    $scope.goModify = function () {
       $state.go('cardpack-edit', {cardpackId: $stateParams.cardpackId});
+    };
+
+    $scope.goHome = function () {
+      $state.transitionTo('tab.dashboard', {}, {reload: true});
     };
 
     $ionicLoading.show();
     Cardpacks.get($stateParams.cardpackId)
-      .success(function(response){
+      .success(function (response) {
         console.log(response);
+
         $scope.data = response;
+        $scope.data.isMine = response.ownerUserId == SessionService.loadUserId();
       })
-      .finally(function(){
+      .finally(function () {
         $ionicLoading.hide();
       });
   });

@@ -1,7 +1,8 @@
 <ion-view view-title="카드팩 메인">
   <ion-nav-buttons side="primary">
-    <button ng-click="goModify()" class="button button-clear pull-right">수정</button>
-    <button ng-click="deleteCardpack()" class="button button-clear pull-right">삭제</button>
+    <button ng-click="goHome()" class="button icon-left ion-home">Home</button>
+    <button ng-click="goModify()" ng-show="data.isMine" class="button button-clear pull-right">수정</button>
+    <button ng-click="deleteCardpack()" ng-show="data.isMine" class="button button-clear pull-right">삭제</button>
   </ion-nav-buttons>
 
   <ion-content>
@@ -44,15 +45,6 @@
         <button class="button button-block button-assertive">학습 종료하기</button>
       </div>
     </div>
-
-    <br/><br/>
-    카드팩명 : {{data.cardpackName}} <br/>
-    유저ID : {{data.ownerUserId}} <br/>
-    카드개수 : {{data.cardCnt}} <br/>
-
-    학습중인 유저수 : {{data.inStudyUserCnt}} <br/>
-    학습완료한 유저수 : {{data.completeStudyUserCnt}} <br/>
-    공개코드 : {{data.accessCd}}
 
   </ion-content>
 </ion-view>
