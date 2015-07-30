@@ -12,7 +12,7 @@ define(['angular', 'app'], function (angular, app) {
     }
   });
 
-  app.controller('MemorizePlayerCtrl', function ($scope, $stateParams, Cardpacks, $timeout, $ionicLoading, StudyStatus, Toast) {
+  app.controller('MemorizePlayerCtrl', function ($scope, $rootScope, $stateParams, Cardpacks, $timeout, $ionicLoading, StudyStatus, Toast, $window) {
     console.log('MemorizePlayerCtrl');
 
     var TYPE = {
@@ -42,7 +42,9 @@ define(['angular', 'app'], function (angular, app) {
         current: current,
         studyActLog: $scope.studyActLog
       }).success(function () {
-        Toast.show('학습진도가 저장되었습니다.', 1000);
+        Toast.show('학습진도가 저장되었습니다.', 500);
+        //$window.location.reload(true);
+        $rootScope.$broadcast('savedStudyStatus', $stateParams.cardpackId);
       });
     });
 

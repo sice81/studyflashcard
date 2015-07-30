@@ -9,6 +9,8 @@ define(['angular', 'app'], function (angular, app) {
   app.controller("Dashboard.ChartCtrl", function ($scope, StudyActStatistics, SessionService, $ionicLoading) {
     console.log('Dashboard.ChartCtrl');
 
+    $scope.data = [];
+
     $ionicLoading.show();
     StudyActStatistics.getDaysByUserId(SessionService.loadUserId())
       .success(function(response){
@@ -55,20 +57,36 @@ define(['angular', 'app'], function (angular, app) {
   app.controller('Dashboard.ListCtrl', function ($scope, SessionService, StudyStatus) {
     console.log('Dashboard.ListCtrl');
 
-    StudyStatus.getList(SessionService.loadUserId())
-      .success(function(response){
-        $scope.studystatusList = response;
-        console.log(response);
-      });
+    function reqGetList() {
+      StudyStatus.getList(SessionService.loadUserId())
+        .success(function(response){
+          $scope.studystatusList = response;
+          console.log(response);
+        });
+    }
 
-    $scope.shouldShowDelete = false;
-    $scope.shouldShowReorder = false;
-    $scope.listCanSwipe = true
+    $scope.studystatusList = [];
+    reqGetList();
+
+    $scope.$on('savedStudyStatus', function(){
+      reqGetList();
+    });
   });
 
   app.controller('Dashboard.MyListCtrl', function ($scope, Cardpacks, SessionService) {
     console.log('Dashboard.MyListCtrl');
     $scope.cardpacks = [];
+
+    $scope.$on('$stateChangeStart', function(){
+      console.log('$stateChangeStart');
+    });
+
+    $scope.$on('$stateChangeSuccess', function(){
+      console.log('$stateChangeSuccess');
+      Cardpacks.allByUserId(SessionService.loadUserId()).success(function(response){
+        $scope.cardpacks = response;
+      });
+    });
 
     Cardpacks.allByUserId(SessionService.loadUserId()).success(function(response){
       $scope.cardpacks = response;
