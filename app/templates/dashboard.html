@@ -15,12 +15,12 @@
       <div class="item item-body">
         <div>
           <ion-list ng-controller="Dashboard.ListCtrl">
-            <ion-item ng-repeat="myfavorite in myfavorites">
-              <a ng-href="#/memorizeplayer/{{myfavorite.cardId}}">{{myfavorite.name}}</a>
+            <ion-item ng-repeat="item in studystatusList">
+              <a ng-href="#/memorizeplayer/{{item.cardpackId}}">{{item.cardpackName}}</a>
               <br>
-              <a>{{myfavorite.status.right}}</a>
+              <a>{{item.rightCnt}}</a>
               /
-              <a>{{myfavorite.size}}</a>
+              <a>{{item.rightCnt}}</a>
               <!--<progress max="{{myfavorite.size}}" value="{{myfavorite.status.right}}"> </progress>-->
             </ion-item>
           </ion-list>

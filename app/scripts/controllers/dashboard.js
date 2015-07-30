@@ -52,8 +52,14 @@ define(['angular', 'app'], function (angular, app) {
     };
   });
 
-  app.controller('Dashboard.ListCtrl', function ($scope) {
+  app.controller('Dashboard.ListCtrl', function ($scope, SessionService, StudyStatus) {
     console.log('Dashboard.ListCtrl');
+
+    StudyStatus.getList(SessionService.loadUserId())
+      .success(function(response){
+        $scope.studystatusList = response;
+        console.log(response);
+      });
 
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;

@@ -5,9 +5,19 @@ define(['angular', 'app'], function (angular, app) {
     console.log('StudyStatus');
 
     return {
+      getList: function (userId) {
+        return $http({
+          url: API_URL + 'api/app/v1/users/' + userId + '/studystatus',
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        });
+      },
+
       get: function (id) {
         return $http({
-          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks/' + id + '/status',
+          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks/' + id + '/studystatus',
           method: "GET",
           headers: {
             'Content-Type': 'application/json; charset=utf-8'
@@ -16,7 +26,7 @@ define(['angular', 'app'], function (angular, app) {
       },
       save: function (id, studyStatus) {
         return $http({
-          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks/' + id + '/status',
+          url: API_URL + 'api/app/v1/users/' + SessionService.loadUserId() + '/cardpacks/' + id + '/studystatus',
           method: "PUT",
           data: studyStatus,
           headers: {
