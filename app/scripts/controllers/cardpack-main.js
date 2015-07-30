@@ -1,16 +1,16 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackMainCtrl', function ($scope, $state, $stateParams, Cardpacks, $ionicLoading, SessionService) {
+  app.controller('CardpackMainCtrl', function ($scope, $state, $stateParams, Cardpacks, $ionicLoading, SessionService, Toast) {
     console.log('CardpackMainCtrl', $stateParams);
 
     $scope.data = {};
     $scope.data.isMine = false;
-    $scope.data.cardpackName = '카드팩명';
-    $scope.data.ownerUserId = 'fb-1818';
-    $scope.data.cardCnt = 100;
-    $scope.data.inStudyUserCnt = 10;
-    $scope.data.completeStudyUserCnt = 5;
+    $scope.data.cardpackName = '';
+    $scope.data.ownerUserId = '';
+    $scope.data.cardCnt = 0;
+    $scope.data.inStudyUserCnt = 0;
+    $scope.data.completeStudyUserCnt = 0;
     $scope.data.accessCd = 'PUBLIC';
 
     $scope.goMemorizePlayer = function () {
@@ -23,6 +23,14 @@ define(['angular', 'app'], function (angular, app) {
 
     $scope.goHome = function () {
       $state.transitionTo('tab.dashboard', {}, {reload: true});
+    };
+
+    $scope.sendStudyEnd = function () {
+      Toast.show('준비 중 입니다.^^');
+    };
+
+    $scope.underConstruction = function () {
+      Toast.show('준비 중 입니다.^^', 500);
     };
 
     $ionicLoading.show();
