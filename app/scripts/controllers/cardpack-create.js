@@ -1,7 +1,7 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $location, $state, $stateParams, $ionicLoading, $ionicPopover, $ionicModal, $http, SessionService, $ionicPopup, Cardpacks) {
+  app.controller('CardpackCreateCtrl', function ($scope, $rootScope, $ionicHistory, $location, $state, $stateParams, $ionicLoading, $ionicPopover, $ionicModal, $http, SessionService, $ionicPopup, Cardpacks, Toast) {
     console.log('CardpackCreateCtrl', $stateParams);
     //$scope.shouldShowDelete = true;
     //$scope.shouldShowReorder = true;
@@ -195,8 +195,9 @@ define(['angular', 'app'], function (angular, app) {
             'Content-Type': 'application/json; charset=utf-8'
           }
         }).success(function () {
-          alert('send success');
           $scope.clearState();
+          $state.transitionTo('tab.dashboard', {}, {reload: true});
+          Toast.show('성공적으로 저장했습니다.');
         });
       } else {
         $http({
@@ -207,8 +208,9 @@ define(['angular', 'app'], function (angular, app) {
             'Content-Type': 'application/json; charset=utf-8'
           }
         }).success(function () {
-          alert('send success');
           $scope.clearState();
+          $state.transitionTo('tab.dashboard', {}, {reload: true});
+          Toast.show('성공적으로 저장했습니다.');
         });
       }
     };

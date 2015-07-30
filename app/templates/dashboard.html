@@ -7,43 +7,48 @@
                 labels="labels" legend="true" series="series"
                 click="onClick">
         </canvas>
+
+        <p ng-show="data.length <= 0">학습기록이 없습니다.</p>
+        <p ng-show="data.length > 0">※ 학습기록은 30분에 한번씩 업데이트 됩니다.</p>
       </div>
     </div>
 
-    <div class="list card">
+
+    <div ng-controller="Dashboard.ListCtrl" class="list card">
       <div class="item item-divider">내 학습진도</div>
       <div class="item item-body">
-        <div>
-          <ion-list ng-controller="Dashboard.ListCtrl">
+        <div ng-show="studystatusList.length > 0">
+          <ion-list>
             <ion-item ng-repeat="item in studystatusList">
               <a ng-href="#/memorizeplayer/{{item.cardpackId}}">{{item.cardpackName}}</a>
               <br>
               <a>{{item.rightCnt}}</a>
               /
-              <a>{{item.rightCnt}}</a>
+              <a>{{item.cardCnt}}</a>
               <!--<progress max="{{myfavorite.size}}" value="{{myfavorite.status.right}}"> </progress>-->
             </ion-item>
           </ion-list>
         </div>
+
+        <p ng-show="studystatusList.length <= 0">학습 중인 카드팩이 없습니다.</p>
       </div>
     </div>
 
-    <div class="list card">
+    <div ng-controller="Dashboard.MyListCtrl" class="list card">
       <div class="item item-divider">내 카드팩 <a ng-href="#/cardpacks/new">+ 카드 만들기</a></div>
       <div class="item item-body">
 
-        <ion-list ng-controller="Dashboard.MyListCtrl">
+        <ion-list ng-show="cardpacks.length > 0">
           <ion-item ng-repeat="cardpack in cardpacks">
             <a ng-href="#/cardpacks/{{cardpack.cardpackId}}">{{cardpack.cardpackName}}</a>
           </ion-item>
         </ion-list>
-      </div>
 
-      <div>
-        내가 만든 카드팩이 없습니다.
+        <p ng-show="cardpacks.length <= 0">
+          내가 만든 카드팩이 없습니다.
+        </p>
+        <a ng-show="cardpacks.length <= 0" ng-href="#/cardpacks/new">+ 카드 만들기</a>
       </div>
-      <a ng-href="#/cardpacks/new">+ 카드 만들기</a>
-
     </div>
   </ion-content>
 </ion-view>
