@@ -68,7 +68,7 @@ define(['angular', 'app'], function (angular, app) {
     $scope.studystatusList = [];
     reqGetList();
 
-    $scope.$on('savedStudyStatus', function(){
+    $scope.$on('$stateChangeSuccess', function(){
       reqGetList();
     });
   });
