@@ -13,13 +13,18 @@
     </div>
 
     <div class="row">
+      <!-- 버튼 왼쪽 (프로필, 정보) -->
       <div class="col col-67">
+        <img ng-src="{{data.ownerUserPicture}}">
         <p>
+          작성자 : {{data.ownerUserName}} <br/>
           카드개수 {{data.cardCnt}}개 <br/>
           학습중인 유저수 : {{data.inStudyUserCnt}} <br/>
           학습완료한 유저수 : {{data.completeStudyUserCnt}}
         </p>
       </div>
+
+      <!-- 버튼 컬럼 -->
       <div class="col">
         <div class="row">
           <div class="col">

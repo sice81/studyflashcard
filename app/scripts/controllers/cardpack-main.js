@@ -12,6 +12,7 @@ define(['angular', 'app'], function (angular, app) {
     $scope.data.inStudyUserCnt = 0;
     $scope.data.completeStudyUserCnt = 0;
     $scope.data.accessCd = 'PUBLIC';
+    $scope.data.ownerUserPicture = '';
 
     $scope.goMemorizePlayer = function () {
       $state.go('memorizeplayer', {cardpackId: $stateParams.cardpackId});
