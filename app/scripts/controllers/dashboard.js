@@ -1,95 +1,92 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('DashboardMainCtrl', function ($scope, Myfavorite) {
+  app.controller('DashboardMainCtrl', function ($scope, Myfavorite, Cardpacks, StudyStatus, StudyActStatistics, SessionService, $ionicLoading) {
     console.log('DashboardMainCtrl');
-    $scope.myfavorites = Myfavorite.all();
-  });
 
-  app.controller("Dashboard.ChartCtrl", function ($scope, StudyActStatistics, SessionService, $ionicLoading) {
-    console.log('Dashboard.ChartCtrl');
-
+    // 최근 학습기록 차트 데이터들
+    $scope.labels=[];
+    $scope.series=[];
     $scope.data = [];
 
-    $ionicLoading.show();
-    StudyActStatistics.getDaysByUserId(SessionService.loadUserId())
-      .success(function(response){
-        console.log('statistics', response);
+    // 내학습진도 데이터들
+    $scope.studystatusList = [];
 
-        // 차트 데이터들
-        var labels = [];
-        var series = ["종합지수", "맞음수", "틀림수"];
-        var data = [[], [], []];
+    function reqStudyStatistics() {
+      StudyActStatistics.getDaysByUserId(SessionService.loadUserId())
+        .success(onResponseStudyStatistics);
+    }
 
-        for (var i in response) {
-          var obj = response[i];
+    function onResponseStudyStatistics(response) {
+      console.log('statistics', response);
 
-          var month = obj.date.substr(4, 2);
-          var day = obj.date.substr(6, 2);
+      // 차트 데이터들
+      var labels = [];
+      var series = ["종합지수", "맞음수", "틀림수"];
+      var data = [[], [], []];
 
-          labels.push(month + '-' + day);
+      for (var i in response) {
+        var obj = response[i];
 
-          var indexPoint = obj.wrongCnt + obj.rightCnt*2 + obj.backViewCnt;
-          data[0].push(indexPoint);
-          data[1].push(obj.rightCnt);
-          data[2].push(obj.wrongCnt);
-        }
+        var month = obj.date.substr(4, 2);
+        var day = obj.date.substr(6, 2);
 
-        $scope.labels = labels;
-        $scope.series = series;
-        $scope.data = data;
-      })
-      .finally(function(){
-        $ionicLoading.hide();
+        labels.push(month + '-' + day);
+
+        var indexPoint = obj.wrongCnt + obj.rightCnt * 2 + obj.backViewCnt;
+        data[0].push(indexPoint);
+        data[1].push(obj.rightCnt);
+        data[2].push(obj.wrongCnt);
+      }
+
+      $scope.labels = labels;
+      $scope.series = series;
+      $scope.data = data;
+    }
+
+    function reqMyStudyStatus() {
+      StudyStatus.getList(SessionService.loadUserId())
+        .success(onResponseMyStudyStatus);
+    }
+
+    function reqMyCardpacks() {
+      Cardpacks.allByUserId(SessionService.loadUserId()).success(function (response) {
+        $scope.cardpacks = response;
       });
+    }
 
-    //$scope.labels = ["월", "화", "수", "목", "금", "토", "일"];
-    //$scope.series = ['카드학습', '퀴즈풀이'];
-    //$scope.data = [
-    //  [65, 59, 80, 81, 56, 55, 40],
-    //  [28, 48, 40, 19, 86, 27, 90]
-    //];
+    function onResponseMyStudyStatus(response) {
+      $scope.studystatusList = response;
+      console.log(response);
+    }
+
+    // 요청
+    reqStudyStatistics();
+    reqMyStudyStatus();
+    reqMyCardpacks();
+
     $scope.onClick = function (points, evt) {
       console.log(points, evt);
     };
-  });
 
-  app.controller('Dashboard.ListCtrl', function ($scope, SessionService, StudyStatus) {
-    console.log('Dashboard.ListCtrl');
-
-    function reqGetList() {
-      StudyStatus.getList(SessionService.loadUserId())
-        .success(function(response){
-          $scope.studystatusList = response;
-          console.log(response);
-        });
-    }
-
-    $scope.studystatusList = [];
-    reqGetList();
-
-    $scope.$on('$stateChangeSuccess', function(){
-      reqGetList();
+    $scope.$on('$stateChangeSuccess', function () {
+      reqMyStudyStatus();
     });
-  });
 
-  app.controller('Dashboard.MyListCtrl', function ($scope, Cardpacks, SessionService) {
-    console.log('Dashboard.MyListCtrl');
     $scope.cardpacks = [];
 
-    $scope.$on('$stateChangeStart', function(){
-      console.log('$stateChangeStart');
-    });
-
-    $scope.$on('$stateChangeSuccess', function(){
+    $scope.$on('$stateChangeSuccess', function () {
       console.log('$stateChangeSuccess');
-      Cardpacks.allByUserId(SessionService.loadUserId()).success(function(response){
-        $scope.cardpacks = response;
-      });
+      reqMyCardpacks();
     });
 
-    Cardpacks.allByUserId(SessionService.loadUserId()).success(function(response){
-      $scope.cardpacks = response;
-    });
+    $scope.doRefresh = function () {
+      reqStudyStatistics();
+      reqMyStudyStatus();
+      reqMyCardpacks();
+
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$apply();
+    };
   });
 });

@@ -1,6 +1,9 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-    <div class="list card" ng-controller="Dashboard.ChartCtrl">
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+    </ion-refresher>
+
+    <div class="list card">
       <div class="item item-divider">최근 학습기록</div>
       <div class="item item-body">
         <canvas id="line" class="chart chart-line" data="data"
@@ -13,8 +16,7 @@
       </div>
     </div>
 
-
-    <div ng-controller="Dashboard.ListCtrl" class="list card">
+    <div class="list card">
       <div class="item item-divider">내 학습진도</div>
       <div class="item item-body">
         <div ng-show="studystatusList.length > 0">
@@ -34,7 +36,7 @@
       </div>
     </div>
 
-    <div ng-controller="Dashboard.MyListCtrl" class="list card">
+    <div class="list card">
       <div class="item item-divider">내 카드팩 <a ng-href="#/cardpacks/new">+ 카드 만들기</a></div>
       <div class="item item-body">
 
