@@ -14,7 +14,7 @@ define(['angular', 'app'], function (angular, app) {
         .success(function(response){
           $scope.data.isExposureStore = response.isExposureStore;
           $scope.data.isAllowCopy = response.isAllowCopy;
-          $scope.data.cardpackAccessCd = response.cardpackAccessCd;
+          $scope.cardpackAccessCd = response.cardpackAccessCd;
         });
 
       Cardpacks.getDoc($stateParams.cardpackId)
