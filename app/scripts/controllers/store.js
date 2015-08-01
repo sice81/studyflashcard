@@ -5,6 +5,12 @@ define(['angular', 'app'], function (angular, app) {
     console.log('StoreCtrl');
 
     $scope.chats = Chats.all();
+
+    $scope.doRefresh = function() {
+      $scope.$broadcast('scroll.refreshComplete');
+      $scope.$apply();
+    };
+
     $scope.remove = function (chat) {
       Chats.remove(chat);
     }
