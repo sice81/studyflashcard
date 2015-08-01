@@ -1,17 +1,33 @@
 <ion-view view-title="카드팩 만들기">
   <ion-nav-buttons side="primary">
-    <button ng-click="sendData()" ng-hide="shouldShowDelete" ng-disabled="items.length <= 0 || data.name.length <= 0" class="button button-clear pull-right">저장</button>
-    <button ng-click="openModal(-1, {})" ng-hide="shouldShowDelete" class="button button-clear pull-right">추가
+    <button ng-click="sendData()" ng-hide="shouldShowDelete" ng-disabled="items.length <= 0 || data.name.length <= 0"
+            class="button button-clear pull-right">저장
     </button>
     <button ng-click="toggleDelete()" ng-show="shouldShowDelete" class="button button-clear pull-right">취소</button>
   </ion-nav-buttons>
 
   <ion-content>
-    <div class="list">
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">카드팩명</span>
-        <input ng-model="data.name" type="text" placeholder="카드팩명을 적어주세요.">
-      </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">카드팩명</span>
+      <input ng-model="data.name" type="text" placeholder="카드팩명을 적어주세요.">
+    </label>
+
+    <div>
+      <a ng-click="openAccessSelectModal()" class="item">공개범위
+          <span ng-show="cardpackAccessCd == 'PUBLIC'" class="item-note">
+            모두 공개
+          </span>
+          <span ng-show="cardpackAccessCd == 'PRIVATE'" class="item-note">
+            나만 보기
+          </span>
+      </a>
+
+      <ion-toggle ng-model="data.isExposureStore" toggle-class="toggle-calm">스토어 노출</ion-toggle>
+      <ion-toggle ng-model="data.isAllowCopy" toggle-class="toggle-calm">사본 허용</ion-toggle>
+    </div>
+
+    <div ng-show="items.length >= 2" class="row">
+      <button ng-click="openModal(-1, {})" class="button button-block button-calm">카드 추가</button>
     </div>
 
     <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
@@ -29,14 +45,32 @@
         </ion-reorder-button>
       </ion-item>
     </ion-list>
+
+    <div class="row">
+      <button ng-click="openModal(-1, {})" class="button button-block button-calm">카드 추가</button>
+    </div>
   </ion-content>
 </ion-view>
+
+<!-- 공개범위 선택 모달창 -->
+<script id="access-select-modal.html" type="text/ng-template">
+  <ion-modal-view ng-controller="AccessSelectModalCtrl">
+    <ion-header-bar>
+      <button ng-click="closeAccessSelectModal()" class="button button-balanced">닫기</button>
+      <h1 class="title">공개범위를 선택하세요.</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-radio ng-click="closeAccessSelectModal()" ng-model="data.cardpackAccessCd" ng-value="'PUBLIC'">모두 공개</ion-radio>
+      <ion-radio ng-click="closeAccessSelectModal()" ng-model="data.cardpackAccessCd" ng-value="'PRIVATE'">나만 보기</ion-radio>
+    </ion-content>
+  </ion-modal-view>
+</script>
 
 <script id="my-modal.html" type="text/ng-template">
   <ion-modal-view ng-controller="CardpackCreateModalCtrl">
     <ion-header-bar>
       <button ng-click="modal.hide()" class="button button-balanced">닫기</button>
-      <h1 class="title">Edit</h1>
+      <h1 class="title">수정</h1>
       <button ng-click="setData(modalData.front, modalData.back)" class="button button-calm pull-right">저장</button>
     </ion-header-bar>
     <ion-content>

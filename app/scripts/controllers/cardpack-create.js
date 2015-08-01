@@ -9,15 +9,21 @@ define(['angular', 'app'], function (angular, app) {
     // 카드팩ID가 넘어온 경우 edit 모드
     if ($stateParams.cardpackId) {
       $ionicLoading.show();
+
+      Cardpacks.get($stateParams.cardpackId)
+        .success(function(response){
+          $scope.data.isExposureStore = response.isExposureStore;
+          $scope.data.isAllowCopy = response.isAllowCopy;
+          $scope.data.cardpackAccessCd = response.cardpackAccessCd;
+        });
+
       Cardpacks.getDoc($stateParams.cardpackId)
-        .then(function(response){
+        .then(function (response) {
           $ionicLoading.hide();
-          console.log(response);
           $scope.data.name = response.cardpackName;
           $scope.items = response.cards;
-        }, function(){
+        }, function () {
           $ionicLoading.hide();
-          console.log('fail');
         });
     }
 
@@ -36,6 +42,9 @@ define(['angular', 'app'], function (angular, app) {
     };
 
     $scope.data = {};
+    $scope.data.isExposureStore = true;
+    $scope.data.isAllowCopy = true;
+    $scope.cardpackAccessCd = 'PUBLIC';
 
     //$scope.isEditMode = false;
     $scope.cards = ['card1'];
@@ -180,8 +189,12 @@ define(['angular', 'app'], function (angular, app) {
         cards: cards
       };
 
+      // 카드팩명, 스토어노출여부, 사본허용, 공개코드, 카드 문서데이터(JSON) 전송
       var cardpackParam = {
         cardpackName: cardpackName,
+        isExposureStore: $scope.data.isExposureStore,
+        isAllowCopy: $scope.data.isAllowCopy,
+        cardpackAccessCd: $scope.cardpackAccessCd,
         docData: angular.toJson(doc)
       };
 
@@ -213,6 +226,24 @@ define(['angular', 'app'], function (angular, app) {
           Toast.show('성공적으로 저장했습니다.');
         });
       }
+    };
+
+    $scope.openAccessSelectModal = function () {
+      $scope.data.cardpackAccessCd = $scope.cardpackAccessCd;
+
+      $ionicModal.fromTemplateUrl('access-select-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function (modal) {
+        $scope.modalAccessSelect = modal;
+        modal.show();
+      });
+    };
+
+    $scope.closeAccessSelectModal = function () {
+      console.log('closeAccessSelectModal', $scope.data.cardpackAccessCd);
+      $scope.cardpackAccessCd = $scope.data.cardpackAccessCd;
+      $scope.modalAccessSelect.hide();
     };
 
     $scope.$on('modal.shown', function () {
@@ -255,5 +286,9 @@ define(['angular', 'app'], function (angular, app) {
       ],
       toolbar: "undo redo | bold italic | bullist numlist outdent indent | link image |  forecolor backcolor emoticons"
     };
+  });
+
+  app.controller('AccessSelectModalCtrl', function ($scope) {
+    console.log('AccessSelectModalCtrl');
   });
 });
