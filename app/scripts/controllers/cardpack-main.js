@@ -1,8 +1,8 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('CardpackMainCtrl', function ($scope, $state, $stateParams, Cardpacks, $ionicLoading, SessionService, Toast) {
-    console.log('CardpackMainCtrl', $stateParams);
+  app.controller('CardpackMainCtrl', function ($scope, $state, $stateParams, $ionicNavBarDelegate, Cardpacks, $ionicLoading, SessionService, Toast) {
+    console.log('CardpackMainCtrl', $stateParams, $ionicNavBarDelegate);
 
     $scope.data = {};
     $scope.data.isMine = false;
@@ -11,7 +11,7 @@ define(['angular', 'app'], function (angular, app) {
     $scope.data.cardCnt = 0;
     $scope.data.inStudyUserCnt = 0;
     $scope.data.completeStudyUserCnt = 0;
-    $scope.data.accessCd = 'PUBLIC';
+    $scope.data.cardpackAccessCd = 'PUBLIC';
     $scope.data.ownerUserPicture = '';
 
     $scope.goMemorizePlayer = function () {

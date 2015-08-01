@@ -6,13 +6,15 @@
   </ion-nav-buttons>
 
   <ion-content>
-    <div class="row">
+    <p ng-show="data.cardpackAccessCd == 'PRIVATE' && !data.isMine">비공개 카드팩입니다.</p>
+
+    <div ng-show="data.cardpackAccessCd == 'PUBLIC' || data.isMine" class="row">
       <div class="col">
         <h3>{{data.cardpackName}}</h3>
       </div>
     </div>
 
-    <div class="row">
+    <div ng-show="data.cardpackAccessCd == 'PUBLIC' || data.isMine" class="row">
       <!-- 버튼 왼쪽 (프로필, 정보) -->
       <div class="col col-67">
         <img ng-src="{{data.ownerUserPicture}}">
@@ -28,24 +30,24 @@
       <div class="col">
         <div class="row">
           <div class="col">
-            <button ng-click="underConstruction()" class="button button-small button-balanced">즐겨찾기</button>
+            <button ng-show="false" ng-click="underConstruction()" class="button button-small button-balanced">즐겨찾기</button>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <button ng-click="underConstruction()" class="button button-small button-positive">사본생성</button>
+            <button ng-disabled="!data.isAllowCopy" ng-click="underConstruction()" class="button button-small button-positive">사본생성</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row">
+    <div ng-show="data.cardpackAccessCd == 'PUBLIC' || data.isMine" class="row">
       <div class="col">
         <button ng-click="goMemorizePlayer()" class="button button-block button-positive">학습 시작하기</button>
       </div>
     </div>
 
-    <div class="row">
+    <div ng-show="data.cardpackAccessCd == 'PUBLIC' || data.isMine" class="row">
       <div class="col">
         <button ng-click="underConstruction()" class="button button-block button-assertive">학습 종료하기</button>
       </div>
