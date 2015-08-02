@@ -35,7 +35,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <button ng-disabled="!data.isAllowCopy" ng-click="underConstruction()" class="button button-small button-positive">사본생성</button>
+            <button ng-show="false" ng-disabled="!data.isAllowCopy" ng-click="underConstruction()" class="button button-small button-positive">사본생성</button>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@
 
     <div ng-show="data.cardpackAccessCd == 'PUBLIC' || data.isMine" class="row">
       <div class="col">
-        <button ng-click="underConstruction()" class="button button-block button-assertive">학습 종료하기</button>
+        <button ng-show="false" ng-click="underConstruction()" class="button button-block button-assertive">학습 종료하기</button>
       </div>
     </div>
 
