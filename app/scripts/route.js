@@ -68,7 +68,7 @@ define(['angular', 'app'], function (angular, app) {
 
       .state('memorizeplayer', {
         cache: false,
-        url: '/memorizeplayer/:cardpackId',
+        url: '/memorizeplayer/:cardpackId/:studyMode',
         templateUrl: CDN_URL + 'templates/memorizeplayer.html' + '?v=' + CDN_VERSION,
         controller: 'MemorizePlayerCtrl'
       })

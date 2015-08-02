@@ -21,13 +21,10 @@
       <div class="item item-body">
         <div ng-show="studystatusList.length > 0">
           <ion-list>
-            <ion-item ng-repeat="item in studystatusList">
-              <a ng-href="#/memorizeplayer/{{item.cardpackId}}">{{item.cardpackName}}</a>
+            <ion-item  ng-click="goMemorizePlayer(item.cardpackId)" ng-repeat="item in studystatusList">
+              <a>{{item.cardpackName}}</a>
               <br>
-              <a>{{item.rightCnt}}</a>
-              /
-              <a>{{item.cardCnt}}</a>
-              <!--<progress max="{{myfavorite.size}}" value="{{myfavorite.status.right}}"> </progress>-->
+              <a>{{item.rightCnt}}</a> / <a>{{item.cardCnt}}</a>
             </ion-item>
           </ion-list>
         </div>

@@ -1,7 +1,7 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('DashboardMainCtrl', function ($scope, Myfavorite, Cardpacks, StudyStatus, StudyActStatistics, SessionService, $ionicLoading) {
+  app.controller('DashboardMainCtrl', function ($scope, $state, $ionicActionSheet, Myfavorite, Cardpacks, StudyStatus, StudyActStatistics, SessionService, $ionicLoading) {
     console.log('DashboardMainCtrl');
 
     // 최근 학습기록 차트 데이터들
@@ -68,6 +68,35 @@ define(['angular', 'app'], function (angular, app) {
     $scope.onClick = function (points, evt) {
       console.log(points, evt);
     };
+
+    $scope.goMemorizePlayer = function (cardpackId) {
+      // Show the action sheet
+      $ionicActionSheet.show({
+        buttons: [
+          { text: '<span>틀린카드만 학습</span>' },
+          { text: '<span>미학습카드만 학습</span>' },
+          { text: '<span>모두 학습</span>' }
+        ],
+        //destructiveText: 'Delete',
+        titleText: '',
+        cancelText: '취소',
+        cancel: function() {
+          // add cancel code..
+        },
+        buttonClicked: function(index) {
+          if (index == 0) {
+            $state.go('memorizeplayer', {cardpackId: cardpackId, studyMode: 'wrongOnly'});
+          } else if (index == 1) {
+            $state.go('memorizeplayer', {cardpackId: cardpackId, studyMode: 'notyetOnly'});
+          } else {
+            $state.go('memorizeplayer', {cardpackId: cardpackId, studyMode: 'all'});
+          }
+
+          return true;
+        }
+      });
+    };
+
 
     $scope.$on('$stateChangeSuccess', function () {
       reqMyStudyStatus();
