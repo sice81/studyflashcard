@@ -123,5 +123,15 @@ define(['angular'], function (angular) {
     };
   });
 
+  module.config(function($ionicConfigProvider) {
+    $ionicConfigProvider.views.transition('ios');
+    $ionicConfigProvider.scrolling.jsScrolling(true);
+    $ionicConfigProvider.tabs.style('standard');
+    $ionicConfigProvider.tabs.position('bottom');
+    $ionicConfigProvider.navBar.alignTitle('center');
+    $ionicConfigProvider.navBar.positionPrimaryButtons('left');
+    $ionicConfigProvider.navBar.positionSecondaryButtons('right');
+  });
+
   return module;
 });
