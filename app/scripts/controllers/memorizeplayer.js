@@ -180,6 +180,8 @@ define(['angular', 'app'], function (angular, app) {
               $scope.cards = newCards;
               $scope.range.max = newCards.length - 1;
               $scope.range.progress = 0;
+            } else {
+              angular.copy(cards, $scope.cards);
             }
           });
       }, function () {
