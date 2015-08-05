@@ -94,12 +94,11 @@ define(['angular', 'app'], function (angular, app) {
       .then(function (response) {
         $ionicLoading.hide();
 
-        var cardpack = response;
-        angular.copy(cardpack.cards, $scope.cards);
-        $scope.range.max = cardpack.cards.length - 1;
+        var cards = response.cards;
+        $scope.range.max = cards.length - 1;
 
-        for (var i in $scope.cards) {
-          var card = $scope.cards[i];
+        for (var i in cards) {
+          var card = cards[i];
           card.isWrong = false;
           card.isRight = false;
           card.type = TYPE.FRONT;
@@ -108,6 +107,7 @@ define(['angular', 'app'], function (angular, app) {
         StudyStatus.get($stateParams.cardpackId)
           .success(function (response) {
             if (!response) {
+              angular.copy(cards, $scope.cards);
               return;
             }
 
@@ -116,8 +116,8 @@ define(['angular', 'app'], function (angular, app) {
             var current = response.current;
 
             if (current) {
-              for (var i = 0; i < $scope.cards.length; i++) {
-                var card = $scope.cards[i];
+              for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
 
                 if (card.id == current) {
                   $scope.range.progress = i;
@@ -140,8 +140,8 @@ define(['angular', 'app'], function (angular, app) {
             }
 
             // 카드 학습정보에서 맞음/틀림 판별
-            for (var i in $scope.cards) {
-              var card = $scope.cards[i];
+            for (var i in cards) {
+              var card = cards[i];
 
               if (mapWrong[card.id]) {
                 card.isWrong = true;
@@ -159,18 +159,18 @@ define(['angular', 'app'], function (angular, app) {
             var newCards = [];
             // 필터링 - 틀린카드
             if ($stateParams.studyMode == STUDY_MODE.WRONG_ONLY) {
-              for (var i in $scope.cards) {
-                if ($scope.cards[i].isWrong) {
-                  newCards.push($scope.cards[i]);
+              for (var i in cards) {
+                if (cards[i].isWrong) {
+                  newCards.push(cards[i]);
                 }
               }
             }
 
             // 필터링 - 미학습카드
             if ($stateParams.studyMode == STUDY_MODE.NOTYET_ONLY) {
-              for (var i in $scope.cards) {
-                if (!$scope.cards[i].isWrong && !$scope.cards[i].isRight) {
-                  newCards.push($scope.cards[i]);
+              for (var i in cards) {
+                if (!cards[i].isWrong && !cards[i].isRight) {
+                  newCards.push(cards[i]);
                 }
               }
             }
@@ -183,6 +183,7 @@ define(['angular', 'app'], function (angular, app) {
             }
           });
       }, function () {
+        angular.copy(cards, $scope.cards);
         $ionicLoading.hide();
       });
 
