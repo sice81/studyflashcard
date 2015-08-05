@@ -11,7 +11,7 @@ define(['angular', 'app'], function (angular, app) {
       $ionicLoading.show();
 
       Cardpacks.get($stateParams.cardpackId)
-        .success(function(response){
+        .success(function (response) {
           $scope.data.isExposureStore = response.isExposureStore;
           $scope.data.isAllowCopy = response.isAllowCopy;
           $scope.cardpackAccessCd = response.cardpackAccessCd;
@@ -146,8 +146,18 @@ define(['angular', 'app'], function (angular, app) {
       $scope.shouldShowDelete = !$scope.shouldShowDelete;
     };
 
+    $scope.toggleReorder = function () {
+      $scope.shouldShowReorder = !$scope.shouldShowReorder;
+    };
+
+    $scope.reorderItem = function (item, fromIndex, toIndex) {
+      console.log('reorderItem', item, fromIndex, toIndex);
+      $scope.items.splice(fromIndex, 1);
+      $scope.items.splice(toIndex, 0, item);
+    };
+
     $scope.onHold = function () {
-      $scope.shouldShowDelete = true;
+      $scope.shouldShowReorder = true;
     };
 
     $scope.validate = function () {
