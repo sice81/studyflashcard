@@ -1,7 +1,7 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('DashboardMainCtrl', function ($scope, $state, $ionicActionSheet, Myfavorite, Cardpacks, StudyStatus, StudyActStatistics, SessionService, $ionicLoading) {
+  app.controller('DashboardMainCtrl', function ($scope, $rootScope, $state, $ionicActionSheet, Myfavorite, Cardpacks, StudyStatus, StudyActStatistics, SessionService, $timeout) {
     console.log('DashboardMainCtrl');
 
     // 최근 학습기록 차트 데이터들
@@ -61,9 +61,11 @@ define(['angular', 'app'], function (angular, app) {
     }
 
     // 요청
-    reqStudyStatistics();
-    reqMyStudyStatus();
-    reqMyCardpacks();
+    if (!SessionService.isAnonymus) {
+      reqStudyStatistics();
+      reqMyStudyStatus();
+      reqMyCardpacks();
+    }
 
     $scope.onClick = function (points, evt) {
       console.log(points, evt);
@@ -97,25 +99,27 @@ define(['angular', 'app'], function (angular, app) {
       });
     };
 
-
-    $scope.$on('$stateChangeSuccess', function () {
-      reqMyStudyStatus();
-    });
-
     $scope.cardpacks = [];
 
-    $scope.$on('$stateChangeSuccess', function () {
-      console.log('$stateChangeSuccess');
-      reqMyCardpacks();
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+      console.log('dashboard.$stateChangeSuccess', event, toState, toParams, fromState, fromParams);
+
+      $timeout(function(){
+        if (!SessionService.isAnonymus) {
+          reqMyStudyStatus();
+          reqMyCardpacks();
+        }
+      }, 1000);
     });
 
     $scope.doRefresh = function () {
-      reqStudyStatistics();
-      reqMyStudyStatus();
-      reqMyCardpacks();
-
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$apply();
+      if (!SessionService.isAnonymus) {
+        reqStudyStatistics();
+        reqMyStudyStatus();
+        reqMyCardpacks();
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$apply();
+      }
     };
   });
 });

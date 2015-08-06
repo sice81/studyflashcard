@@ -12,7 +12,7 @@ define(['angular'], function (angular) {
 
   module.factory('SessionService', function () {
     return {
-      isAnonymus: false,
+      isAnonymus: true,
       saveUserId: function(userId) {
         localStorage.setItem('userId', userId);
       },
@@ -67,7 +67,7 @@ define(['angular'], function (angular) {
     $httpProvider.interceptors.push('sessionInjector');
   }]);
 
-  module.run(function ($ionicPlatform, $rootScope, $ionicModal, Toast) {
+  module.run(function ($ionicPlatform, $rootScope, $ionicModal, Toast, SessionService) {
     $rootScope.config = {};
     $rootScope.config.CDN_URL = CDN_URL;
     $rootScope.config.CDN_VERSION = CDN_VERSION;
@@ -89,11 +89,34 @@ define(['angular'], function (angular) {
     });
 
     $rootScope.$on('login:hide', function() {
-      $rootScope.loginModal.hide();
+      if ($rootScope.loginModal) {
+        $rootScope.loginModal.hide();
+      }
     });
 
     $rootScope.$on('showMessage', function(event, msg){
       Toast.show(msg, 3000);
+    });
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      if (SessionService.isAnonymus) {
+        if (SessionService.loadToken()) {
+          SessionService.isAnonymus = false;
+        }
+      }
+
+      console.log('app.$stateChangeStart');
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+      console.log('app.$stateChangeSuccess');
+      if (toState.auth && SessionService.isAnonymus) {
+        $rootScope.$broadcast('login:show');
+        console.log('app.show()');
+      } else {
+        $rootScope.$broadcast('login:hide');
+        console.log('app.hide()');
+      }
     });
 
     $ionicPlatform.ready(function () {
