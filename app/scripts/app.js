@@ -24,6 +24,10 @@ define(['angular'], function (angular) {
       },
       loadToken: function() {
         return localStorage.getItem('token');
+      },
+      clear: function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
       }
     };
   });
@@ -48,6 +52,7 @@ define(['angular'], function (angular) {
             break;
 
           case 401:
+            SessionService.clear();
             $rootScope.$broadcast('login:show');
                 break;
 
