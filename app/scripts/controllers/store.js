@@ -1,18 +1,37 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  app.controller('StoreCtrl', function ($scope, Chats) {
+  app.controller('StoreCtrl', function ($scope, $http, $ionicLoading) {
     console.log('StoreCtrl');
 
-    $scope.chats = Chats.all();
+    $scope.items = [];
+
+    function req() {
+      $ionicLoading.show();
+
+      return $http({
+        url: API_URL + 'api/app/v1/store',
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      })
+        .success(function(response) {
+          $scope.items = response;
+        })
+        .finally(function() {
+          $ionicLoading.hide();
+        });
+    }
+
+    req();
 
     $scope.doRefresh = function() {
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$apply();
+      req()
+        .finally(function(){
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.$apply();
+        });
     };
-
-    $scope.remove = function (chat) {
-      Chats.remove(chat);
-    }
   });
 });
