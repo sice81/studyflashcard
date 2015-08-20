@@ -2,6 +2,8 @@
 
 스터디카드 프론트 프로젝트입니다.
 
+앵귤러와 IONIC으로 작성되었습니다.
+
 This project is generated with [yo angular-require generator](https://github.com/aaronallport/generator-angular-require)
 version 1.0.0.
 
