@@ -8,6 +8,10 @@
     padding: 0;
   }
 
+  .body-complete {
+
+  }
+
   .swiper-container {
     height: 300px;
     margin: 20px auto;
@@ -39,7 +43,7 @@
 
 <ion-view view-title="Memorize Player">
   <ion-content>
-    <div class="body">
+    <div class="body" ng-hide="isShowComplete">
       <a class="assertive">틀림 : {{getWrongCount()}}</a>
       <a class="calm">맞음 : {{getRightCount()}}</a>
       정답률 : {{ getRightCount() / (range.max+1) * 100}}%
@@ -59,7 +63,7 @@
       <!-- Range -->
       <div class="item range">
         <input type="range" name="volume" min="0" max="{{range.max}}" value="0" ng-model="range.progress">
-     </div>
+      </div>
 
       <center>{{current}} / {{range.max+1}}</center>
 
@@ -69,7 +73,11 @@
         <div class="title">결과는?</div>
         <button ng-click="addRight()" class="button button-calm">맞음</button>
       </div>
+    </div>
 
+    <div class="body-complete content padding has-header" ng-show="isShowComplete">
+      <h2>학습을 완료했습니다.</h2>
+      <button ng-click="goMain()" class="button button-block button-calm">메인으로 가기</button>
     </div>
   </ion-content>
 </ion-view>

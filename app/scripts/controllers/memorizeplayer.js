@@ -12,7 +12,7 @@ define(['angular', 'app'], function (angular, app) {
     }
   });
 
-  app.controller('MemorizePlayerCtrl', function ($scope, $rootScope, $stateParams, Cardpacks, $timeout, $ionicLoading, StudyStatus, Toast, SessionService) {
+  app.controller('MemorizePlayerCtrl', function ($scope, $rootScope, $stateParams, Cardpacks, $timeout, $ionicLoading, StudyStatus, Toast, SessionService, $state) {
     console.log('MemorizePlayerCtrl');
 
     var STUDY_MODE = {
@@ -211,6 +211,7 @@ define(['angular', 'app'], function (angular, app) {
     $scope.right = 0;
     $scope.wrong = 0;
     $scope.isShowResult = false;
+    $scope.isShowComplete = false;
     $scope.wrongArr = [];
     $scope.rightArr = [];
     $scope.studyActLog = {
@@ -237,7 +238,13 @@ define(['angular', 'app'], function (angular, app) {
       }
 
       $scope.studyActLog.rightCnt++;
-      $scope.swiper.slideNext();
+
+      if ($scope.getRightCount() >= $scope.cards.length) {
+        $scope.isShowComplete = true;
+      } else {
+        $scope.swiper.slideNext();
+      }
+
     };
 
     $scope.addWrong = function () {
@@ -290,6 +297,10 @@ define(['angular', 'app'], function (angular, app) {
         card.type = TYPE.FRONT;
         $scope.isShowResult = false;
       }
+    };
+
+    $scope.goMain = function() {
+      $state.go('tab.dashboard');
     };
 
     $scope.$watch('range.progress', function (newValue, oldValue) {
