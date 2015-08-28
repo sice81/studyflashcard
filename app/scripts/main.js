@@ -33,7 +33,8 @@ require.config({
     'oauth-facebook': 'oauth-facebook',
     'cardpacks-service': './services/cardpacks',
     'studystatus-service': './services/studystatus',
-    'studyact-statistics-service': './services/studyact-statistics'
+    'studyact-statistics-service': './services/studyact-statistics',
+    'profile-service': './services/profile'
   },
   shim: {
     'angular': {'exports': 'angular'},
@@ -92,7 +93,8 @@ require([
   'cardpacks-service',
   'studystatus-service',
   'studyact-statistics-service',
-  'oauth-facebook'
+  'oauth-facebook',
+  'profile-service'
 ], function (angular, app) {
   'use strict';
   /* jshint ignore:start */

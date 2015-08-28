@@ -12,7 +12,6 @@ define(['angular', 'app'], function (angular, app) {
       .state('cardpack-create', {
         url: '/cardpacks/new',
         cache: false,
-        auth: true,
         templateUrl: CDN_URL + 'templates/cardpack-create.html' + '?v=' + CDN_VERSION,
         controller: 'CardpackCreateCtrl'
       })
@@ -20,7 +19,6 @@ define(['angular', 'app'], function (angular, app) {
       .state('cardpack-edit', {
         url: '/cardpacks/edit/:cardpackId',
         cache: false,
-        auth: true,
         templateUrl: CDN_URL + 'templates/cardpack-create.html' + '?v=' + CDN_VERSION,
         controller: 'CardpackCreateCtrl'
       })
@@ -28,7 +26,6 @@ define(['angular', 'app'], function (angular, app) {
       .state('cardpack-main', {
         url: '/cardpacks/:cardpackId',
         cache: false,
-        auth: false,
         templateUrl: CDN_URL + 'templates/cardpack-main.html' + '?v=' + CDN_VERSION,
         controller: 'CardpackMainCtrl'
       })
@@ -41,7 +38,6 @@ define(['angular', 'app'], function (angular, app) {
 
       .state('tab.dashboard', {
         url: '/dashboard',
-        auth: true,
         views: {
           'tab-dashboard': {
             templateUrl: CDN_URL + 'templates/dashboard.html' + '?v=' + CDN_VERSION,
@@ -52,7 +48,6 @@ define(['angular', 'app'], function (angular, app) {
 
       .state('tab.store', {
         url: '/store',
-        auth: true,
         views: {
           'tab-store': {
             templateUrl: CDN_URL + 'templates/store.html' + '?v=' + CDN_VERSION,
@@ -63,7 +58,6 @@ define(['angular', 'app'], function (angular, app) {
 
       .state('tab.settings', {
         url: '/settings',
-        auth: true,
         views: {
           'tab-settings': {
             templateUrl: CDN_URL + 'templates/settings.html' + '?v=' + CDN_VERSION,
@@ -74,10 +68,16 @@ define(['angular', 'app'], function (angular, app) {
 
       .state('memorizeplayer', {
         cache: false,
-        auth: false,
         url: '/memorizeplayer/:cardpackId/:studyMode',
         templateUrl: CDN_URL + 'templates/memorizeplayer.html' + '?v=' + CDN_VERSION,
         controller: 'MemorizePlayerCtrl'
+      })
+
+      .state('userprofile', {
+        url: '/user/profile',
+        cache: false,
+        templateUrl: CDN_URL + 'templates/profile.html' + '?v=' + CDN_VERSION,
+        controller: 'UserProfileCtrl'
       })
     ;
 
