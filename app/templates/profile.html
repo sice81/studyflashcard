@@ -1,0 +1,27 @@
+<ion-view view-title="프로필">
+  <ion-nav-buttons side="left">
+    <button ng-click="back()" ng-hide="shouldShowDelete" class="button button-clear pull-right">뒤로
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <button ng-click="save()" ng-hide="shouldShowDelete" ng-disabled="userName.length <= 0 || userEmail.length <= 0" class="button button-clear pull-right">저장
+    </button>
+  </ion-nav-buttons>
+  <br/>
+  <br/>
+  <div>
+    <!--<ion-content>-->
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">이름</span>
+      <input ng-model="userName" type="text" placeholder="이름을 적어주세요." />
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">이메일</span>
+      <input ng-model="userEmail" type="text" placeholder="이메일을 적어주세요." />
+    </label>
+    <!--</ion-content>-->
+  </div>
+</ion-view>
+
+
+
